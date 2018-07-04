@@ -1,0 +1,45 @@
+<%= link_to destroy_user_session_path, method: :delete do %>
+  Déconnexion
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<h1>Recherche Clients</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ct num</th>
+      <th>Ct type</th>
+      <th>Ct classement</th>
+      <th>Ct adresse</th>
+      <th>Ct codepostal</th>
+      <th>Ct ville</th>
+      <th>Ct email</th>
+      <th>Ct telephone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recherche_clients.each do |recherche_client| %>
+      <tr>
+        <td><%= recherche_client.ct_num %></td>
+        <td><%= recherche_client.ct_type %></td>
+        <td><%= recherche_client.ct_classement %></td>
+        <td><%= recherche_client.ct_adresse %></td>
+        <td><%= recherche_client.ct_codepostal %></td>
+        <td><%= recherche_client.ct_ville %></td>
+        <td><%= recherche_client.ct_email %></td>
+        <td><%= recherche_client.ct_telephone %></td>
+        <td><%= link_to 'Show', recherche_client %></td>
+        <td><%= link_to 'Edit', edit_recherche_client_path(recherche_client) %></td>
+        <td><%= link_to 'Destroy', recherche_client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recherche Client', new_recherche_client_path %>

@@ -1,0 +1,2 @@
+class RechercheClient < ApplicationRecord
+end
