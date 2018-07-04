@@ -65,13 +65,13 @@ config.webpacker.check_yarn_integrity = false
   # config.active_job.queue_name_prefix = "willemse_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'staging-reg.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'staging-willemse.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
       :user_name => ENV['SENDGRID_USERNAME'],
       :password => ENV['SENDGRID_PASSWORD'],
-      :domain => 'staging-reg.herokuapp.com',
+      :domain => 'staging-willemse.herokuapp.com',
       :address => 'smtp.sendgrid.net',
       :port => 587,
       :authentication => :plain,
