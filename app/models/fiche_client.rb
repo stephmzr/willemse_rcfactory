@@ -1,0 +1,2 @@
+class FicheClient < ApplicationRecord
+end
