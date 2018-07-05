@@ -11,5 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require "./uikit.css"
+ *= require "./main.scss"
+ *= require "datatables.net-dt/css/jquery.dataTables.css"
  *= require_self
  */

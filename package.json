@@ -3,6 +3,9 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
+    "datatables.net-responsive": "^2.2.3",
     "lodash": "^4.17.10",
     "stimulus": "^1.0.1",
     "uikit": "^3.0.0-rc.6"
