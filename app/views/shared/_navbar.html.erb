@@ -45,4 +45,30 @@
   </nav>
 
   <%= yield %>
+
+  <div id="offcanvas-navbar" uk-offcanvas="mode: push">
+    <div class="uk-offcanvas-bar">
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+      <ul class="uk-nav uk-nav-default">
+        <li class="uk-nav-header">General</li>
+        <li>
+          <%= link_to recherche_clients_path, data: {target: 'navbar.link'} do %>
+            Recherche Client
+          <% end %>
+        </li>
+        <li>
+          <%= link_to recherche_clients_path, data: {target: 'navbar.link'} do %>
+            Recherche document
+          <% end %>
+        </li>
+        <li class="uk-nav-divider"></li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            Déconnexion
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

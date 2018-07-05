@@ -18,3 +18,11 @@
     color: #47a52a;
   }
 }
+.tm-navbar .uk-navbar-right .uk-navbar-nav > li > a,
+.tm-navbar .uk-navbar-right .uk-navbar-nav > li > a:focus {
+  color: #47a52a;
+
+  &:hover {
+    color: #4CB42E;
+  }
+}
