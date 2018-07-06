@@ -1,0 +1,2 @@
+class ListeDocument < ApplicationRecord
+end

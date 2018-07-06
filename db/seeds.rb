@@ -28,3 +28,14 @@ FicheClient.create(ct_num: "012346", ct_intitule: "Madame", ct_civilite: "Mme", 
                    ct_codepostal: "17330", ct_ville: "doeuil sur le mignon", ct_pays: "France",
                    ct_email: "pameloche@hotmail.fr", ct_telephone: "", ct_telportable: "+33 6 50 75 51 25",
                    solde_cagnotte: 1898)
+
+#ListeDocument
+ListeDocument.create(ct_num: "012345", ca_num: "Web", s_intitule: "N Pièce", do_piece: "C00073314",
+                     do_ref: "21386643", do_coord01: "epuise", do_totalht: 8.17, do_date: "2018-03-21",
+                     do_statut: "Commande annulée", do_expedie: false, do_type: 1)
+ListeDocument.create(ct_num: "012345", ca_num: "Web", s_intitule: "N Pièce", do_piece: "F00069546",
+                     do_ref: "21386643", do_coord01: "", do_totalht: 45.4, do_date: "2018-04-04",
+                     do_statut: "Facture comptabilisée", do_expedie: true, do_type: 7)
+ListeDocument.create(ct_num: "012345", ca_num: "Catalogue", s_intitule: "N Pièce", do_piece: "C00114522",
+                     do_ref: "21764972", do_coord01: "epuise", do_totalht: 9.08, do_date: "2018-04-26",
+                     do_statut: "Commande annulée", do_expedie: false, do_type: 1)

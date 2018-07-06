@@ -1,4 +1,4 @@
-<div class="uk-section uk-section-default">
+<div class="uk-section-xsmall uk-section-default">
   <div class="uk-container">
     <%= render 'shared/notice' %>
 
@@ -8,17 +8,17 @@
       </div>
     </div>
 
-    <%= render 'shared/table', locals: { id: 'faucets_table', dom: 'lrtip', paging: false, info: false } do %>
+    <%= render 'shared/table', locals: { id: 'recherche_clients_table', dom: 'lrtip', paging: false, info: false } do %>
       <thead>
         <tr>
-          <th>Ct num</th>
-          <th>Ct type</th>
-          <th>Ct classement</th>
-          <th>Ct adresse</th>
-          <th>Ct codepostal</th>
-          <th>Ct ville</th>
-          <th>Ct email</th>
-          <th>Ct telephone</th>
+          <th>CT_Num</th>
+          <th>CT_Type</th>
+          <th>CT_Classement</th>
+          <th>CT_Adresse</th>
+          <th>CT_Codepostal</th>
+          <th>CT_Ville</th>
+          <th>CT_Email</th>
+          <th>CT_Telephone</th>
           <th data-orderable="false">Actions</th>
         </tr>
       </thead>
