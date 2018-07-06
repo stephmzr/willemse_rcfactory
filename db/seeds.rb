@@ -50,3 +50,14 @@ DetailCommande.create(do_piece: "F00069546", do_ref: "21386643", do_date: "21/03
                       decagnottage: 0.0, date_expedition: "21/03/2018", numero_tracking: "00BA59XM",
                       lien_tracking: "http://www.gls-group.eu/276-I-PORTAL-WEB/content/GLS/FR01/FR/5004.htm?txtRefNo=00BA59XM&amp;txtAction=71000",
                       code_partenaire: "", motifs_rmbt_recl: "", motifs_retour: "")
+
+#ContenuCommande
+ContenuCommande.create(do_piece: "F00069546", ar_ref: "017300", dl_design: "25 Pommes de terre 'Osiris'",
+                       dl_qte: 8, dl_puttc: 7.99, remise: 0, dl_montantttc: 63.92, ldf: "", code_statut: "Epuisé",
+                       nomenclature: "")
+ContenuCommande.create(do_piece: "F00069546", ar_ref: "011683", dl_design: "Echalote Lyska",
+                       dl_qte: 1, dl_puttc: 17, remise: 10, dl_montantttc: 15.3, ldf: "", code_statut: "Epuisé",
+                       nomenclature: "Nomenclature")
+ContenuCommande.create(do_piece: "F00069546", ar_ref: "014130", dl_design: "Amaryllis rouge",
+                       dl_qte: 1, dl_puttc: 6.99, remise: 0, dl_montantttc: 6.99, ldf: "", code_statut: "Epuisé",
+                       nomenclature: "")

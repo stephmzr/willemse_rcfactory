@@ -141,6 +141,46 @@
           </div>
         </div>
       </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Détail commande<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <thead>
+              <tr>
+                <th>AR_Ref</th>
+                <th>DL_Design</th>
+                <th>DL_Qte</th>
+                <th>DL_PUTTC</th>
+                <th>Remise</th>
+                <th>DL_MontantTTC</th>
+                <th>LDF</th>
+                <th>Code_Statut</th>
+                <th>Nomenclature</th>
+              </tr>
+              </thead>
+
+              <% if @contenu_commande.present? %>
+                <tbody>
+                <% @contenu_commande.each do |contenu| %>
+                  <tr>
+                    <td><%= contenu.ar_ref %></td>
+                    <td><%= contenu.dl_design %></td>
+                    <td><%= contenu.dl_qte %></td>
+                    <td><%= contenu.dl_puttc %></td>
+                    <td><%= contenu.remise %></td>
+                    <td><%= contenu.dl_montantttc %></td>
+                    <td><%= contenu.ldf %></td>
+                    <td><%= contenu.code_statut %></td>
+                    <td><%= contenu.nomenclature %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </li>
     </ul>
 
     <div class="uk-margin-medium">

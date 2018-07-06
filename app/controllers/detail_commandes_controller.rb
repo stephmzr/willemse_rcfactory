@@ -18,6 +18,7 @@ class DetailCommandesController < ApplicationController
 
   # GET /detail_commandes/1
   def show
+    @contenu_commande = ContenuCommande.where(do_piece: @detail_commande.do_piece)
   end
 
   # GET /detail_commandes/new
