@@ -3,7 +3,17 @@ class FicheClientsController < ApplicationController
 
   # GET /fiche_clients
   def index
-    @fiche_clients = FicheClient.all
+    if params[:client_num].present?
+      @fiche_client = FicheClient.find_by(ct_num: params[:client_num])
+      if @fiche_client.present?
+        redirect_to fiche_client_path(@fiche_client)
+        return
+      else
+        redirect_to recherche_clients_path
+      end
+    else
+      redirect_to recherche_clients_path
+    end
   end
 
   # GET /fiche_clients/1

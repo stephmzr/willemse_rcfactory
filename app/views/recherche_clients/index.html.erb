@@ -37,7 +37,9 @@
             <td class="uk-flex uk-flex-center">
               <ul class="uk-iconnav">
                 <li>
+                  <%= link_to fiche_clients_path(client_num: recherche_client.ct_num) do %>
                     <span uk-icon="search" , uk-tooltip="Détails"></span>
+                  <% end %>
                 </li>
               </ul>
             </td>
