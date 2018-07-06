@@ -78,16 +78,51 @@
         </div>
       </li>
       <li class="uk-open">
-        <%= link_to '#', class: 'uk-accordion-title' do %>Commandes<% end %>
+        <%= link_to '#', class: 'uk-accordion-title' do %>Documents<% end %>
         <div class="uk-accordion-content">
           <div class="uk-overflow-auto">
             <table class="uk-table uk-table-striped">
-              <tbody>
+              <thead>
               <tr>
-                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro client</td>
-                <td><%= @fiche_client.ct_num %></td>
+                <th>CA_Num</th>
+                <th>S_Intitule</th>
+                <th>DO_Piece</th>
+                <th>DO_Ref</th>
+                <th>DO_Coord01</th>
+                <th>DO_TotalHT</th>
+                <th>DO_Date</th>
+                <th>DO_Statut</th>
+                <th>DO_Expedie</th>
+                <th>DO_Type</th>
+                <th data-orderable="false">Actions</th>
               </tr>
-              </tbody>
+              </thead>
+
+              <% if @documents.present? %>
+                <tbody>
+                <% @documents.each do |document| %>
+                  <tr>
+                    <td><%= document.ca_num %></td>
+                    <td><%= document.s_intitule %></td>
+                    <td><%= document.do_piece %></td>
+                    <td><%= document.do_ref %></td>
+                    <td><%= document.do_coord01 %></td>
+                    <td><%= document.do_totalht %></td>
+                    <td><%= document.do_date %></td>
+                    <td><%= document.do_statut %></td>
+                    <td><%= document.do_expedie %></td>
+                    <td><%= document.do_type %></td>
+                    <td class="uk-flex uk-flex-center">
+                      <ul class="uk-iconnav">
+                        <li>
+                          <span uk-icon="search" , uk-tooltip="Détails"></span>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              <% end %>
             </table>
           </div>
         </div>

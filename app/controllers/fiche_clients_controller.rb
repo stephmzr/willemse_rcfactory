@@ -18,6 +18,7 @@ class FicheClientsController < ApplicationController
 
   # GET /fiche_clients/1
   def show
+    @documents = ListeDocument.where(ct_num: @fiche_client.ct_num)
   end
 
   # GET /fiche_clients/new
