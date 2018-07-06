@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Detail Commandes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Do piece</th>
+      <th>Do ref</th>
+      <th>Do date</th>
+      <th>Ca num</th>
+      <th>Montantttc</th>
+      <th>Do valfrais</th>
+      <th>Do statut</th>
+      <th>Urgent</th>
+      <th>Point retrait relais</th>
+      <th>Societe livraison</th>
+      <th>Nom livraison</th>
+      <th>Prenom livraison</th>
+      <th>Email livraison</th>
+      <th>Telephone livraison</th>
+      <th>Adresse livraison</th>
+      <th>Complement livraison</th>
+      <th>Code postal livraison</th>
+      <th>Ville livraison</th>
+      <th>Pays livraison</th>
+      <th>Code avantage</th>
+      <th>Decagnottage</th>
+      <th>Date expedition</th>
+      <th>Numero tracking</th>
+      <th>Lien tracking</th>
+      <th>Code partenaire</th>
+      <th>Motifs rmbt recl</th>
+      <th>Motifs retour</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @detail_commandes.each do |detail_commande| %>
+      <tr>
+        <td><%= detail_commande.do_piece %></td>
+        <td><%= detail_commande.do_ref %></td>
+        <td><%= detail_commande.do_date %></td>
+        <td><%= detail_commande.ca_num %></td>
+        <td><%= detail_commande.montantttc %></td>
+        <td><%= detail_commande.do_valfrais %></td>
+        <td><%= detail_commande.do_statut %></td>
+        <td><%= detail_commande.urgent %></td>
+        <td><%= detail_commande.point_retrait_relais %></td>
+        <td><%= detail_commande.societe_livraison %></td>
+        <td><%= detail_commande.nom_livraison %></td>
+        <td><%= detail_commande.prenom_livraison %></td>
+        <td><%= detail_commande.email_livraison %></td>
+        <td><%= detail_commande.telephone_livraison %></td>
+        <td><%= detail_commande.adresse_livraison %></td>
+        <td><%= detail_commande.complement_livraison %></td>
+        <td><%= detail_commande.code_postal_livraison %></td>
+        <td><%= detail_commande.ville_livraison %></td>
+        <td><%= detail_commande.pays_livraison %></td>
+        <td><%= detail_commande.code_avantage %></td>
+        <td><%= detail_commande.decagnottage %></td>
+        <td><%= detail_commande.date_expedition %></td>
+        <td><%= detail_commande.numero_tracking %></td>
+        <td><%= detail_commande.lien_tracking %></td>
+        <td><%= detail_commande.code_partenaire %></td>
+        <td><%= detail_commande.motifs_rmbt_recl %></td>
+        <td><%= detail_commande.motifs_retour %></td>
+        <td><%= link_to 'Show', detail_commande %></td>
+        <td><%= link_to 'Edit', edit_detail_commande_path(detail_commande) %></td>
+        <td><%= link_to 'Destroy', detail_commande, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Detail Commande', new_detail_commande_path %>

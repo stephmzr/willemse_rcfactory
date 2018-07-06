@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :detail_commandes
   resources :liste_documents
   resources :fiche_clients
   resources :recherche_clients

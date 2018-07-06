@@ -1,0 +1,2 @@
+class DetailCommande < ApplicationRecord
+end
