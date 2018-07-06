@@ -9,7 +9,7 @@ class FicheClientsController < ApplicationController
         redirect_to fiche_client_path(@fiche_client)
         return
       else
-        redirect_to recherche_clients_path
+        redirect_to recherche_clients_path, alert: "Aucun client avec ce numéro n'a été trouvé dans les fiches client."
       end
     else
       redirect_to recherche_clients_path

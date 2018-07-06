@@ -5,12 +5,12 @@
 
     <div class="uk-flex-middle uk-margin-medium" uk-grid>
       <div class="uk-width-expand@m">
-        <h1 class="uk-heading-primary"><%= @fiche_client.ct_civilite %> <%= @fiche_client.ct_nom %> <%= @fiche_client.ct_prenom %></h1>
+        <h1 class="uk-heading-primary"><%= @fiche_client.ct_intitule %> <%= @fiche_client.ct_nom %> <%= @fiche_client.ct_prenom %></h1>
       </div>
     </div>
 
-    <ul class="uk-list-large uk-list-divider" uk-accordion>
-      <li>
+    <ul class="uk-list-large uk-list-divider" uk-accordion="multiple: true">
+      <li class="uk-open">
         <%= link_to '#', class: 'uk-accordion-title' do %>Informations du client<% end %>
         <div class="uk-accordion-content">
           <div class="uk-overflow-auto">
@@ -71,6 +71,21 @@
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Solde Cagnotte</td>
                 <td><%= @fiche_client.solde_cagnotte %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Commandes<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro client</td>
+                <td><%= @fiche_client.ct_num %></td>
               </tr>
               </tbody>
             </table>
