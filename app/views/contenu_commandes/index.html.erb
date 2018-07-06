@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Contenu Commandes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Do piece</th>
+      <th>Ar ref</th>
+      <th>Dl design</th>
+      <th>Dl qte</th>
+      <th>Dl puttc</th>
+      <th>Remise</th>
+      <th>Dl montantttc</th>
+      <th>Ldf</th>
+      <th>Code statut</th>
+      <th>Nomenclature</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contenu_commandes.each do |contenu_commande| %>
+      <tr>
+        <td><%= contenu_commande.do_piece %></td>
+        <td><%= contenu_commande.ar_ref %></td>
+        <td><%= contenu_commande.dl_design %></td>
+        <td><%= contenu_commande.dl_qte %></td>
+        <td><%= contenu_commande.dl_puttc %></td>
+        <td><%= contenu_commande.remise %></td>
+        <td><%= contenu_commande.dl_montantttc %></td>
+        <td><%= contenu_commande.ldf %></td>
+        <td><%= contenu_commande.code_statut %></td>
+        <td><%= contenu_commande.nomenclature %></td>
+        <td><%= link_to 'Show', contenu_commande %></td>
+        <td><%= link_to 'Edit', edit_contenu_commande_path(contenu_commande) %></td>
+        <td><%= link_to 'Destroy', contenu_commande, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contenu Commande', new_contenu_commande_path %>

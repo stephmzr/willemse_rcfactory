@@ -1,0 +1,2 @@
+class ContenuCommande < ApplicationRecord
+end
