@@ -1,139 +1,150 @@
-<p id="notice"><%= notice %></p>
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container">
 
-<p>
-  <strong>Do piece:</strong>
-  <%= @detail_commande.do_piece %>
-</p>
+    <%= render 'shared/notice' %>
 
-<p>
-  <strong>Do ref:</strong>
-  <%= @detail_commande.do_ref %>
-</p>
+    <div class="uk-flex-middle uk-margin-medium" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">Commande : <%= @detail_commande.do_piece %></h1>
+      </div>
+    </div>
 
-<p>
-  <strong>Do date:</strong>
-  <%= @detail_commande.do_date %>
-</p>
+    <ul class="uk-list-large uk-list-divider" uk-accordion="multiple: true">
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Résumé<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_piece</td>
+                <td><%= @detail_commande.do_piece %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_ref</td>
+                <td><%= @detail_commande.do_ref %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_date</td>
+                <td><%= @detail_commande.do_date %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">ca_num</td>
+                <td><%= @detail_commande.ca_num %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">montantttc</td>
+                <td><%= @detail_commande.montantttc %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_valfrais</td>
+                <td><%= @detail_commande.do_valfrais %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_statut</td>
+                <td><%= @detail_commande.do_statut %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">urgent</td>
+                <td><%= @detail_commande.urgent %></td>
+              </tr>
 
-<p>
-  <strong>Ca num:</strong>
-  <%= @detail_commande.ca_num %>
-</p>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_avantage</td>
+                <td><%= @detail_commande.code_avantage %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">decagnottage</td>
+                <td><%= @detail_commande.decagnottage %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_partenaire</td>
+                <td><%= @detail_commande.code_partenaire %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">motifs_rmbt_recl</td>
+                <td><%= @detail_commande.motifs_rmbt_recl %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">motifs_retour</td>
+                <td><%= @detail_commande.motifs_retour %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Transport<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">point_retrait_relais</td>
+                <td><%= @detail_commande.point_retrait_relais %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">societe_livraison</td>
+                <td><%= @detail_commande.societe_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">nom_livraison</td>
+                <td><%= @detail_commande.nom_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">prenom_livraison</td>
+                <td><%= @detail_commande.prenom_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">email_livraison</td>
+                <td><%= @detail_commande.email_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">telephone_livraison</td>
+                <td><%= @detail_commande.telephone_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">adresse_livraison</td>
+                <td><%= @detail_commande.adresse_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">complement_livraison</td>
+                <td><%= @detail_commande.complement_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_postal_livraison</td>
+                <td><%= @detail_commande.code_postal_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">ville_livraison</td>
+                <td><%= @detail_commande.ville_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">pays_livraison</td>
+                <td><%= @detail_commande.pays_livraison %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">date_expedition</td>
+                <td><%= @detail_commande.date_expedition %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">numero_tracking</td>
+                <td><%= @detail_commande.numero_tracking %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">lien_tracking</td>
+                <td><%= @detail_commande.lien_tracking %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+    </ul>
 
-<p>
-  <strong>Montantttc:</strong>
-  <%= @detail_commande.montantttc %>
-</p>
-
-<p>
-  <strong>Do valfrais:</strong>
-  <%= @detail_commande.do_valfrais %>
-</p>
-
-<p>
-  <strong>Do statut:</strong>
-  <%= @detail_commande.do_statut %>
-</p>
-
-<p>
-  <strong>Urgent:</strong>
-  <%= @detail_commande.urgent %>
-</p>
-
-<p>
-  <strong>Point retrait relais:</strong>
-  <%= @detail_commande.point_retrait_relais %>
-</p>
-
-<p>
-  <strong>Societe livraison:</strong>
-  <%= @detail_commande.societe_livraison %>
-</p>
-
-<p>
-  <strong>Nom livraison:</strong>
-  <%= @detail_commande.nom_livraison %>
-</p>
-
-<p>
-  <strong>Prenom livraison:</strong>
-  <%= @detail_commande.prenom_livraison %>
-</p>
-
-<p>
-  <strong>Email livraison:</strong>
-  <%= @detail_commande.email_livraison %>
-</p>
-
-<p>
-  <strong>Telephone livraison:</strong>
-  <%= @detail_commande.telephone_livraison %>
-</p>
-
-<p>
-  <strong>Adresse livraison:</strong>
-  <%= @detail_commande.adresse_livraison %>
-</p>
-
-<p>
-  <strong>Complement livraison:</strong>
-  <%= @detail_commande.complement_livraison %>
-</p>
-
-<p>
-  <strong>Code postal livraison:</strong>
-  <%= @detail_commande.code_postal_livraison %>
-</p>
-
-<p>
-  <strong>Ville livraison:</strong>
-  <%= @detail_commande.ville_livraison %>
-</p>
-
-<p>
-  <strong>Pays livraison:</strong>
-  <%= @detail_commande.pays_livraison %>
-</p>
-
-<p>
-  <strong>Code avantage:</strong>
-  <%= @detail_commande.code_avantage %>
-</p>
-
-<p>
-  <strong>Decagnottage:</strong>
-  <%= @detail_commande.decagnottage %>
-</p>
-
-<p>
-  <strong>Date expedition:</strong>
-  <%= @detail_commande.date_expedition %>
-</p>
-
-<p>
-  <strong>Numero tracking:</strong>
-  <%= @detail_commande.numero_tracking %>
-</p>
-
-<p>
-  <strong>Lien tracking:</strong>
-  <%= @detail_commande.lien_tracking %>
-</p>
-
-<p>
-  <strong>Code partenaire:</strong>
-  <%= @detail_commande.code_partenaire %>
-</p>
-
-<p>
-  <strong>Motifs rmbt recl:</strong>
-  <%= @detail_commande.motifs_rmbt_recl %>
-</p>
-
-<p>
-  <strong>Motifs retour:</strong>
-  <%= @detail_commande.motifs_retour %>
-</p>
-
-<%= link_to 'Edit', edit_detail_commande_path(@detail_commande) %> |
-<%= link_to 'Back', detail_commandes_path %>
+    <div class="uk-margin-medium">
+      <%= link_to 'Retour', liste_documents_path, class: 'uk-button uk-button-default' %>
+    </div>
+  </div>
+</div>

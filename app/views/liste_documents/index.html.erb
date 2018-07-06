@@ -40,9 +40,9 @@
             <td><%= liste_document.do_type %></td>
             <td class="uk-flex uk-flex-center">
               <ul class="uk-iconnav">
-                <li>
+                <%= link_to detail_commandes_path(do_piece: liste_document.do_piece) do %>
                   <span uk-icon="search" , uk-tooltip="Détails"></span>
-                </li>
+                <% end %>
               </ul>
             </td>
           </tr>

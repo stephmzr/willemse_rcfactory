@@ -39,3 +39,14 @@ ListeDocument.create(ct_num: "012345", ca_num: "Web", s_intitule: "N Pièce", do
 ListeDocument.create(ct_num: "012345", ca_num: "Catalogue", s_intitule: "N Pièce", do_piece: "C00114522",
                      do_ref: "21764972", do_coord01: "epuise", do_totalht: 9.08, do_date: "2018-04-26",
                      do_statut: "Commande annulée", do_expedie: false, do_type: 1)
+
+#DetailCommande
+DetailCommande.create(do_piece: "F00069546", do_ref: "21386643", do_date: "21/03/2018", ca_num: "Web",
+                      montantttc: 98.4, do_valfrais: 6.4, do_statut: "Facture comptabilisée", urgent: "",
+                      point_retrait_relais: "", societe_livraison: "", nom_livraison: "DAGORNE",
+                      prenom_livraison: "DANIELLE", email_livraison: "8569663779@cwill.fr", telephone_livraison: "",
+                      adresse_livraison: "LIEU DIT LE HENLIS", complement_livraison: "", code_postal_livraison: "56340",
+                      ville_livraison: "PLOUHARNEL", pays_livraison: "France métropolitaine", code_avantage: "",
+                      decagnottage: 0.0, date_expedition: "21/03/2018", numero_tracking: "00BA59XM",
+                      lien_tracking: "http://www.gls-group.eu/276-I-PORTAL-WEB/content/GLS/FR01/FR/5004.htm?txtRefNo=00BA59XM&amp;txtAction=71000",
+                      code_partenaire: "", motifs_rmbt_recl: "", motifs_retour: "")

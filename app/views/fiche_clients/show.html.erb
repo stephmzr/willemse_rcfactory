@@ -115,7 +115,9 @@
                     <td class="uk-flex uk-flex-center">
                       <ul class="uk-iconnav">
                         <li>
-                          <span uk-icon="search" , uk-tooltip="Détails"></span>
+                          <%= link_to detail_commandes_path(do_piece: document.do_piece) do %>
+                            <span uk-icon="search" , uk-tooltip="Détails"></span>
+                          <% end %>
                         </li>
                       </ul>
                     </td>
