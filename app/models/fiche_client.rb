@@ -1,2 +1,2 @@
-class FicheClient < ApplicationRecord
+class FicheClient < SqlServerDb
 end

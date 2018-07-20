@@ -5,6 +5,7 @@ class RechercheClientsController < ApplicationController
   def index
     if params[:search].present?
       @recherche_clients = RechercheClient.execute_procedure "p_rechercheclient", params[:search]
+      @search = params[:search]
     else
       @recherche_clients = []
     end

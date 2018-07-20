@@ -4,10 +4,10 @@ class FicheClientsController < ApplicationController
   # GET /fiche_clients
   def index
     if params[:client_num].present?
-      @fiche_client = FicheClient.find_by(ct_num: params[:client_num])
-      if @fiche_client.present?
-        redirect_to fiche_client_path(@fiche_client)
-        return
+      result = FicheClient.execute_procedure "p_ficheclient", params[:client_num]
+      if result.present?
+        @fiche_client = result[0]
+        @search = params[:search]
       else
         redirect_to recherche_clients_path, alert: "Aucun client avec ce numéro n'a été trouvé dans les fiches client."
       end
