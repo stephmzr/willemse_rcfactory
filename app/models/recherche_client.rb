@@ -1,2 +1,2 @@
-class RechercheClient < ApplicationRecord
+class RechercheClient < SqlServerDb
 end

@@ -13,6 +13,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'turbolinks', '~> 5'
 gem 'devise'
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter'
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

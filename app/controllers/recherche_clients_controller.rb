@@ -3,7 +3,11 @@ class RechercheClientsController < ApplicationController
 
   # GET /recherche_clients
   def index
-    @recherche_clients = RechercheClient.all
+    if params[:search].present?
+      @recherche_clients = RechercheClient.execute_procedure "p_rechercheclient", params[:search]
+    else
+      @recherche_clients = []
+    end
   end
 
   # GET /recherche_clients/1

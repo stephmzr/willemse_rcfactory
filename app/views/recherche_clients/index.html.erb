@@ -8,17 +8,30 @@
       </div>
     </div>
 
-    <%= render 'shared/table', locals: { id: 'recherche_clients_table', dom: 'lrtip', paging: false, info: false } do %>
+    <%= form_with(model: @recherche_client, local: true, action: recherche_clients_path, method: 'GET') do |form| %>
+      <div class="uk-margin uk-grid-small" uk-grid>
+        <div class="uk-width-1-3">
+          <%= form.text_field :search, class: 'uk-input', data: { target: 'form.input' }, placeholder: 'Rechercher ...' %>
+        </div>
+        <div class="uk-width-1-4 no-padding-left">
+          <%= button_tag class: 'uk-button uk-button-default' do %>
+            <span class="uk-icon" uk-icon="search"></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render 'shared/table', locals: { id: 'recherche_clients_table', dom: 'lrtip', paging: false, info: false, searching: false } do %>
       <thead>
         <tr>
-          <th>CT_Num</th>
-          <th>CT_Type</th>
-          <th>CT_Classement</th>
-          <th>CT_Adresse</th>
-          <th>CT_Codepostal</th>
-          <th>CT_Ville</th>
-          <th>CT_Email</th>
-          <th>CT_Telephone</th>
+          <th>Num</th>
+          <th>Type</th>
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Code postal</th>
+          <th>Ville</th>
+          <th>Email</th>
+          <th>Telephone</th>
           <th data-orderable="false">Actions</th>
         </tr>
       </thead>
@@ -26,18 +39,18 @@
       <tbody>
         <% @recherche_clients.each do |recherche_client| %>
           <tr>
-            <td><%= recherche_client.ct_num %></td>
-            <td><%= recherche_client.ct_type %></td>
-            <td><%= recherche_client.ct_classement %></td>
-            <td><%= recherche_client.ct_adresse %></td>
-            <td><%= recherche_client.ct_codepostal %></td>
-            <td><%= recherche_client.ct_ville %></td>
-            <td><%= recherche_client.ct_email %></td>
-            <td><%= recherche_client.ct_telephone %></td>
+            <td><%= recherche_client['CT_NUM']%></td>
+            <td><%= recherche_client['CT_Type'] %></td>
+            <td><%= recherche_client['CT_classement'] %></td>
+            <td><%= recherche_client['CT_Adresse'] %></td>
+            <td><%= recherche_client['CT_codepostal'] %></td>
+            <td><%= recherche_client['CT_Ville'] %></td>
+            <td><%= recherche_client['CT_EMail'] %></td>
+            <td><%= recherche_client['CT_telephone'] %></td>
             <td class="uk-flex uk-flex-center">
               <ul class="uk-iconnav">
                 <li>
-                  <%= link_to fiche_clients_path(client_num: recherche_client.ct_num) do %>
+                  <%= link_to fiche_clients_path(client_num: recherche_client['CT_NUM']) do %>
                     <span uk-icon="search" , uk-tooltip="Détails"></span>
                   <% end %>
                 </li>
