@@ -25,3 +25,8 @@ span.select2.select2-container {
 .no-padding-left {
   padding-left: 0 !important;
 }
+
+table.dataTable tbody th, table.dataTable tbody td {
+  font-size: 14px;
+  padding: 5px !important;
+}
