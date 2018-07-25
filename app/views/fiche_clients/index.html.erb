@@ -5,7 +5,7 @@
 
     <div class="uk-flex-middle uk-margin-medium" uk-grid>
       <div class="uk-width-expand@m">
-        <h1 class="uk-heading-primary"><%= @fiche_client['CT_Civilite'] %> <%= @fiche_client['CT_Nom'] %> <%= @fiche_client['CT_Prenom'] %></h1>
+        <h1 class="uk-heading-primary"><%= @variables[:fiche_client]['CT_Civilite'] %> <%= @variables[:fiche_client]['CT_Nom'] %> <%= @variables[:fiche_client]['CT_Prenom'] %></h1>
       </div>
     </div>
 
@@ -18,121 +18,122 @@
               <tbody>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro client</td>
-                <td><%= @fiche_client['CT_Num'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Num'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Intitulé</td>
-                <td><%= @fiche_client['CT_Intitule'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Intitule'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Civilité</td>
-                <td><%= @fiche_client['CT_Civilite'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Civilite'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Nom</td>
-                <td><%= @fiche_client['CT_Nom'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Nom'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Prénom</td>
-                <td><%= @fiche_client['CT_Prenom'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Prenom'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Adresse</td>
-                <td><%= @fiche_client['CT_Adresse'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Adresse'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Complément d'adresse</td>
-                <td><%= @fiche_client['CT_Complement'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Complement'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Code postal</td>
-                <td><%= @fiche_client['CT_CodePostal'] %></td>
+                <td><%= @variables[:fiche_client]['CT_CodePostal'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Ville</td>
-                <td><%= @fiche_client['CT_Ville'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Ville'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Pays</td>
-                <td><%= @fiche_client['CT_Pays'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Pays'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Email</td>
-                <td><%= @fiche_client['CT_EMail'] %></td>
+                <td><%= @variables[:fiche_client]['CT_EMail'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Téléphone</td>
-                <td><%= @fiche_client['CT_Telephone'] %></td>
+                <td><%= @variables[:fiche_client]['CT_Telephone'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Téléphone portable</td>
-                <td><%= @fiche_client['CT_TelPortable'] %></td>
+                <td><%= @variables[:fiche_client]['CT_TelPortable'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Solde Cagnotte</td>
-                <td><%= @fiche_client['SOLDE_CAGNOTTE'] %></td>
+                <td><%= @variables[:fiche_client]['SOLDE_CAGNOTTE'] %></td>
               </tr>
               </tbody>
             </table>
           </div>
         </div>
       </li>
-<!--      <li class="uk-open">-->
-<!--        <%#= link_to '#', class: 'uk-accordion-title' do %>Documents<%# end %>-->
-<!--        <div class="uk-accordion-content">-->
-<!--          <div class="uk-overflow-auto">-->
-<!--            <table class="uk-table uk-table-striped">-->
-<!--              <thead>-->
-<!--              <tr>-->
-<!--                <th>CA_Num</th>-->
-<!--                <th>S_Intitule</th>-->
-<!--                <th>DO_Piece</th>-->
-<!--                <th>DO_Ref</th>-->
-<!--                <th>DO_Coord01</th>-->
-<!--                <th>DO_TotalHT</th>-->
-<!--                <th>DO_Date</th>-->
-<!--                <th>DO_Statut</th>-->
-<!--                <th>DO_Expedie</th>-->
-<!--                <th>DO_Type</th>-->
-<!--                <th data-orderable="false">Actions</th>-->
-<!--              </tr>-->
-<!--              </thead>-->
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Documents<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <thead>
+              <tr>
+                <th>CA_Num</th>
+                <th>S_Intitule</th>
+                <th>DO_Piece</th>
+                <th>DO_Ref</th>
+                <th>DO_Coord01</th>
+                <th>DO_TotalHT</th>
+                <th>DO_Date</th>
+                <th>DO_Statut</th>
+                <th>DO_Expedie</th>
+                <th>DO_Type</th>
+                <th data-orderable="false">Actions</th>
+              </tr>
+              </thead>
 
-              <%# if @documents.present? %>
-<!--                <tbody>-->
-                <%# @documents.each do |document| %>
-<!--                  <tr>-->
-<!--                    <td><%#= document.ca_num %></td>-->
-<!--                    <td><%#= document.s_intitule %></td>-->
-<!--                    <td><%#= document.do_piece %></td>-->
-<!--                    <td><%#= document.do_ref %></td>-->
-<!--                    <td><%#= document.do_coord01 %></td>-->
-<!--                    <td><%#= document.do_totalht %></td>-->
-<!--                    <td><%#= document.do_date %></td>-->
-<!--                    <td><%#= document.do_statut %></td>-->
-<!--                    <td><%#= document.do_expedie %></td>-->
-<!--                    <td><%#= document.do_type %></td>-->
-<!--                    <td class="uk-flex uk-flex-center">-->
-<!--                      <ul class="uk-iconnav">-->
-<!--                        <li>-->
-                          <%#= link_to detail_commandes_path(do_piece: document.do_piece) do %>
-<!--                            <span uk-icon="search" , uk-tooltip="Détails"></span>-->
-                          <%# end %>
-<!--                        </li>-->
-<!--                      </ul>-->
-<!--                    </td>-->
-<!--                  </tr>-->
-                <%# end %>
-<!--                </tbody>-->
-              <%# end %>
-<!--            </table>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </li>-->
+              <% if @variables[:documents].present? %>
+                <tbody>
+                <% @variables[:documents].each do |document| %>
+                  <tr>
+                    <td><%= document['CA_Num'] %></td>
+                    <td><%= document['S_Intitule'] %></td>
+                    <td><%= document['DO_Piece'] %></td>
+                    <td><%= document['DO_Ref'] %></td>
+                    <td><%= document['DO_Coord01'] %></td>
+                    <td><%= document['DO_TotalHT'] %></td>
+                    <td><%= document['DO_Date'] %></td>
+                    <td><%= document['DO_Satut'] %></td>
+                    <td><%= document['DO_Expedie'] %></td>
+                    <td><%= document['DO_Type_Text'] %></td>
+                    <td class="uk-flex uk-flex-center">
+                      <ul class="uk-iconnav">
+                        <li>
+                          <%= link_to detail_commandes_path(do_piece: document['DO_Piece'], do_type: document['DO_Type'],
+                                                            search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']) do %>
+                            <span uk-icon="search" , uk-tooltip="Détails"></span>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </li>
     </ul>
 
     <div class="uk-margin-medium">
-      <%= link_to 'Retour', recherche_clients_path(search: @search), class: 'uk-button uk-button-default' %>
+      <%= link_to 'Retour', recherche_clients_path(search: @params[:search]), class: 'uk-button uk-button-default' %>
     </div>
   </div>
 </div>

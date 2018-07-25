@@ -26,7 +26,6 @@
         <thead>
           <tr>
             <th>N°Client</th>
-            <th>Type</th>
             <th>Nom</th>
             <th>Adresse</th>
             <th>CP</th>
@@ -41,7 +40,6 @@
           <% @recherche_clients.each do |recherche_client| %>
             <tr>
               <td><%= recherche_client['CT_NUM']%></td>
-              <td><%= recherche_client['CT_Type'] %></td>
               <td><%= recherche_client['CT_classement'] %></td>
               <td><%= recherche_client['CT_Adresse'] %></td>
               <td><%= recherche_client['CT_codepostal'] %></td>

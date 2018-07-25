@@ -1,2 +1,2 @@
-class DetailCommande < ApplicationRecord
+class DetailCommande < SqlServerDb
 end

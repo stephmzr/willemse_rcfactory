@@ -3,16 +3,17 @@ class DetailCommandesController < ApplicationController
 
   # GET /detail_commandes
   def index
+    @params = { search: params[:search], client_num: params[:client_num] }
     if params[:do_piece].present?
-      @detail_commande = DetailCommande.find_by(do_piece: params[:do_piece])
-      if @detail_commande.present?
-        redirect_to detail_commande_path(@detail_commande)
-        return
+      result = DetailCommande.execute_procedure "p_detail_commande", params[:do_piece], params[:do_type]
+      if result.present?
+        contenu_commande = DetailCommande.execute_procedure "p_contenu_commande", params[:do_piece], params[:do_type]
+        @variables = { detail_commande: result[0], contenu_commande: contenu_commande}
       else
-        redirect_to liste_documents_path, alert: "Aucune commande avec ce numéro n'a été trouvée."
+        redirect_to fiche_clients_path(client_num: params[:client_num], search: params[:search]), alert: "Aucun document avec ce numéro de référence n'a été trouvée."
       end
     else
-      redirect_to liste_documents_path
+      redirect_to fiche_clients_path(client_num: params[:client_num], search: params[:search])
     end
   end
 

@@ -6,8 +6,34 @@ class FicheClientsController < ApplicationController
     if params[:client_num].present?
       result = FicheClient.execute_procedure "p_ficheclient", params[:client_num]
       if result.present?
-        @fiche_client = result[0]
-        @search = params[:search]
+        documents = FicheClient.execute_procedure "p_listdocs", params[:client_num]
+        documents.each do |document|
+          document['DO_TotalHT'] = "%.2f" % document['DO_TotalHT']
+          case document['DO_Type']
+          when 0
+            document['DO_Type_Text'] = 'Devis'
+          when 1
+            document['DO_Type_Text'] = 'Bon de commande'
+          when 2
+            document['DO_Type_Text'] = 'Préparation de livraison'
+          when 3
+            document['DO_Type_Text'] = 'Bon de livraison'
+          when 4
+            document['DO_Type_Text'] = 'Bon de retour'
+          when 5
+            document['DO_Type_Text'] = 'Bon d\'avoir'
+          when 6
+            document['DO_Type_Text'] = 'Facture'
+          when 7
+            document['DO_Type_Text'] = 'Facture comptabilisée'
+          when 8
+            document['DO_Type_Text'] = 'Archive'
+          else
+            document['DO_Type_Text'] = ''
+          end
+        end
+        @variables = { fiche_client: result[0], documents: documents }
+        @params = { search: params[:search] }
       else
         redirect_to recherche_clients_path, alert: "Aucun client avec ce numéro n'a été trouvé dans les fiches client."
       end

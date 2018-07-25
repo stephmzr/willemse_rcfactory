@@ -1,79 +1,190 @@
-<p id="notice"><%= notice %></p>
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container">
 
-<h1>Detail Commandes</h1>
+    <%= render 'shared/notice' %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Do piece</th>
-      <th>Do ref</th>
-      <th>Do date</th>
-      <th>Ca num</th>
-      <th>Montantttc</th>
-      <th>Do valfrais</th>
-      <th>Do statut</th>
-      <th>Urgent</th>
-      <th>Point retrait relais</th>
-      <th>Societe livraison</th>
-      <th>Nom livraison</th>
-      <th>Prenom livraison</th>
-      <th>Email livraison</th>
-      <th>Telephone livraison</th>
-      <th>Adresse livraison</th>
-      <th>Complement livraison</th>
-      <th>Code postal livraison</th>
-      <th>Ville livraison</th>
-      <th>Pays livraison</th>
-      <th>Code avantage</th>
-      <th>Decagnottage</th>
-      <th>Date expedition</th>
-      <th>Numero tracking</th>
-      <th>Lien tracking</th>
-      <th>Code partenaire</th>
-      <th>Motifs rmbt recl</th>
-      <th>Motifs retour</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <div class="uk-flex-middle uk-margin-medium" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">Commande : <%= @variables[:detail_commande]['DO_piece'] %></h1>
+      </div>
+    </div>
 
-  <tbody>
-    <% @detail_commandes.each do |detail_commande| %>
-      <tr>
-        <td><%= detail_commande.do_piece %></td>
-        <td><%= detail_commande.do_ref %></td>
-        <td><%= detail_commande.do_date %></td>
-        <td><%= detail_commande.ca_num %></td>
-        <td><%= detail_commande.montantttc %></td>
-        <td><%= detail_commande.do_valfrais %></td>
-        <td><%= detail_commande.do_statut %></td>
-        <td><%= detail_commande.urgent %></td>
-        <td><%= detail_commande.point_retrait_relais %></td>
-        <td><%= detail_commande.societe_livraison %></td>
-        <td><%= detail_commande.nom_livraison %></td>
-        <td><%= detail_commande.prenom_livraison %></td>
-        <td><%= detail_commande.email_livraison %></td>
-        <td><%= detail_commande.telephone_livraison %></td>
-        <td><%= detail_commande.adresse_livraison %></td>
-        <td><%= detail_commande.complement_livraison %></td>
-        <td><%= detail_commande.code_postal_livraison %></td>
-        <td><%= detail_commande.ville_livraison %></td>
-        <td><%= detail_commande.pays_livraison %></td>
-        <td><%= detail_commande.code_avantage %></td>
-        <td><%= detail_commande.decagnottage %></td>
-        <td><%= detail_commande.date_expedition %></td>
-        <td><%= detail_commande.numero_tracking %></td>
-        <td><%= detail_commande.lien_tracking %></td>
-        <td><%= detail_commande.code_partenaire %></td>
-        <td><%= detail_commande.motifs_rmbt_recl %></td>
-        <td><%= detail_commande.motifs_retour %></td>
-        <td><%= link_to 'Show', detail_commande %></td>
-        <td><%= link_to 'Edit', edit_detail_commande_path(detail_commande) %></td>
-        <td><%= link_to 'Destroy', detail_commande, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <ul class="uk-list-large uk-list-divider" uk-accordion="multiple: true">
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Résumé<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_piece</td>
+                <td><%= @variables[:detail_commande]['DO_piece'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_ref</td>
+                <td><%= @variables[:detail_commande]['DO_Ref'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_date</td>
+                <td><%= @variables[:detail_commande]['DO_Date'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">ca_num</td>
+                <td><%= @variables[:detail_commande]['CA_Num'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">montantttc</td>
+                <td><%= @variables[:detail_commande]['MontantTTC'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_valfrais</td>
+                <td><%= @variables[:detail_commande]['DO_ValFrais'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_statut</td>
+                <td><%= @variables[:detail_commande]['DO_Satut'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">urgent</td>
+                <td><%= @variables[:detail_commande]['URGENT'] %></td>
+              </tr>
 
-<br>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_avantage</td>
+                <td><%= @variables[:detail_commande]['CODE_AVANTAGE'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">decagnottage</td>
+                <td><%= @variables[:detail_commande]['DECAGNOTTAGE'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_partenaire</td>
+                <td><%= @variables[:detail_commande]['CODE_PARTENAIRE'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">motifs_rmbt_recl</td>
+                <td><%= @variables[:detail_commande]['MOTIFS_RMBT_RECL'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">motifs_retour</td>
+                <td><%= @variables[:detail_commande]['MOTIFS_RETOUR'] %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Transport<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">point_retrait_relais</td>
+                <td><%= @variables[:detail_commande]['POINT_RETRAIT_RELAIS'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">societe_livraison</td>
+                <td><%= @variables[:detail_commande]['SOCIETE_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">nom_livraison</td>
+                <td><%= @variables[:detail_commande]['NOM_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">prenom_livraison</td>
+                <td><%= @variables[:detail_commande]['PRENOM_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">email_livraison</td>
+                <td><%= @variables[:detail_commande]['EMAIL_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">telephone_livraison</td>
+                <td><%= @variables[:detail_commande]['TELEPHONE_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">adresse_livraison</td>
+                <td><%= @variables[:detail_commande]['ADRESSE_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">complement_livraison</td>
+                <td><%= @variables[:detail_commande]['COMPLEMENT_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">code_postal_livraison</td>
+                <td><%= @variables[:detail_commande]['CODE_POSTAL_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">ville_livraison</td>
+                <td><%= @variables[:detail_commande]['VILLE_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">pays_livraison</td>
+                <td><%= @variables[:detail_commande]['PAYS_LIVRAISON'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">date_expedition</td>
+                <td><%= @variables[:detail_commande]['DATE_EXPEDITION'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">numero_tracking</td>
+                <td><%= @variables[:detail_commande]['NUMERO_TRACKING'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">lien_tracking</td>
+                <td><%= @variables[:detail_commande]['LIEN_TRACKING'] %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Détail commande<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <thead>
+              <tr>
+                <th>AR_Ref</th>
+                <th>DL_Design</th>
+                <th>DL_Qte</th>
+                <th>DL_PUTTC</th>
+                <th>Remise</th>
+                <th>DL_MontantTTC</th>
+                <th>LDF</th>
+                <th>Code_Statut</th>
+                <th>Nomenclature</th>
+              </tr>
+              </thead>
 
-<%= link_to 'New Detail Commande', new_detail_commande_path %>
+              <% if @variables[:contenu_commande].present? %>
+                <tbody>
+                <% @variables[:contenu_commande].each do |contenu| %>
+                  <tr>
+                    <td><%= contenu['AR_Ref'] %></td>
+                    <td><%= contenu['DL_Design'] %></td>
+                    <td><%= contenu['DL_QTE'] %></td>
+                    <td><%= "%.2f" % contenu['DL_PUTTC'] %></td>
+                    <td><%= "%.2f" % contenu['Remise'] %></td>
+                    <td><%= "%.2f" % contenu['DL_MontantTTC'] %></td>
+                    <td><%= contenu['LDF'] %></td>
+                    <td><%= contenu['Code_statut'] %></td>
+                    <td><%= contenu['Nomenclature'] %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="uk-margin-medium">
+      <%= link_to 'Retour', fiche_clients_path(client_num: @params[:client_num], search: @params[:search]), class: 'uk-button uk-button-default' %>
+    </div>
+  </div>
+</div>
