@@ -14,7 +14,7 @@
         <%= link_to '#', class: 'uk-accordion-title' do %>Résumé<% end %>
         <div class="uk-accordion-content">
           <div class="uk-overflow-auto">
-            <table class="uk-table uk-table-striped">
+            <table class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive">
               <tbody>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_piece</td>
@@ -34,7 +34,7 @@
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">montantttc</td>
-                <td><%= @variables[:detail_commande]['MontantTTC'] %></td>
+                <td><%= "%.2f" % @variables[:detail_commande]['MontantTTC'] %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">do_valfrais</td>
@@ -78,7 +78,7 @@
         <%= link_to '#', class: 'uk-accordion-title' do %>Transport<% end %>
         <div class="uk-accordion-content">
           <div class="uk-overflow-auto">
-            <table class="uk-table uk-table-striped">
+            <table class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive">
               <tbody>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">point_retrait_relais</td>
@@ -134,7 +134,7 @@
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">lien_tracking</td>
-                <td><%= @variables[:detail_commande]['LIEN_TRACKING'] %></td>
+                <td><%= link_to nil, @variables[:detail_commande]['LIEN_TRACKING'] %></td>
               </tr>
               </tbody>
             </table>
@@ -145,22 +145,22 @@
         <%= link_to '#', class: 'uk-accordion-title' do %>Détail commande<% end %>
         <div class="uk-accordion-content">
           <div class="uk-overflow-auto">
-            <table id="order_detail_table" class="uk-table uk-table-hover uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
-              <thead>
-              <tr>
-                <th>AR_Ref</th>
-                <th>DL_Design</th>
-                <th>DL_Qte</th>
-                <th>DL_PUTTC</th>
-                <th>Remise</th>
-                <th>DL_MontantTTC</th>
-                <th>LDF</th>
-                <th>Code_Statut</th>
-                <th>Nomenclature</th>
-              </tr>
-              </thead>
+            <% if @variables[:contenu_commande].present? %>
+              <table id="order_detail_table" class="uk-table uk-table-hover uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+                <thead>
+                <tr>
+                  <th>AR_Ref</th>
+                  <th>DL_Design</th>
+                  <th>DL_Qte</th>
+                  <th>DL_PUTTC</th>
+                  <th>Remise</th>
+                  <th>DL_MontantTTC</th>
+                  <th>LDF</th>
+                  <th>Code_Statut</th>
+                  <th>Nomenclature</th>
+                </tr>
+                </thead>
 
-              <% if @variables[:contenu_commande].present? %>
                 <tbody>
                 <% @variables[:contenu_commande].each do |contenu| %>
                   <tr>
@@ -176,8 +176,8 @@
                   </tr>
                 <% end %>
                 </tbody>
-              <% end %>
-            </table>
+              </table>
+            <% end %>
           </div>
         </div>
       </li>

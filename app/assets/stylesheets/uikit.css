@@ -6996,6 +6996,12 @@ ul.uk-nav-sub {
   font-size: 0.875rem;
   line-height: 1.5;
 }
+
+.uk-text-xmedium {
+    font-size: 1.15rem;
+    line-height: 1.5;
+}
+
 .uk-text-large {
   font-size: 1.5rem;
   line-height: 1.5;
