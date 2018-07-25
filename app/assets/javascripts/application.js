@@ -15,4 +15,7 @@
 //= require turbolinks
 //= require "uikit/dist/js/uikit"
 //= require "uikit/dist/js/uikit-icons"
+//= require "datatables.net/js/jquery.dataTables"
+//= require "datatables.net-dt/js/dataTables.dataTables"
+//= require "datatables.net-responsive/js/dataTables.responsive"
 //= require_tree .

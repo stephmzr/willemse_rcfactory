@@ -918,6 +918,9 @@ a.uk-link-reset:hover,
 }
 /* Size modifier
  ========================================================================== */
+.uk-table-xsmall td {
+    padding: 5px 7px;
+}
 .uk-table-small th,
 .uk-table-small td {
   padding: 10px 12px;

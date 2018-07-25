@@ -22,7 +22,7 @@
     <% end %>
 
     <% if @recherche_clients.length > 0 %>
-      <%= render 'shared/table', locals: { id: 'recherche_clients_table', dom: 'lrtip', paging: false, info: false, searching: false } do %>
+      <table id="recherche_client_table" class="uk-table uk-table-hover uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
         <thead>
           <tr>
             <th>N°Client</th>
@@ -58,7 +58,23 @@
             </tr>
           <% end %>
         </tbody>
-      <% end %>
+      </table>
     <% end %>
+
   </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        const table = $('#recherche_client_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "responsive": true,
+            "language": {
+                "decimal": ".",
+                "thousands": " "
+            }
+        });
+    });
+</script>
