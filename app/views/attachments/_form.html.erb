@@ -1,0 +1,32 @@
+<%= form_with(model: attachment, local: true, data: {controller: 'form', form_errors: attachment.errors.messages.keys.join(',')}) do |form| %>
+  <fieldset class="uk-fieldset">
+    <% if attachment.errors.any? %>
+      <div id="error_explanation" class="uk-alert-danger" uk-alert>
+        <h2><%= pluralize(attachment.errors.count, "error") %> prohibited this attachment from being saved:</h2>
+
+        <ul>
+        <% attachment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="uk-margin">
+      <%= form.label :kind, "Type", class: 'uk-form-label' %>
+      <%= form.select :kind, Attachment.kinds.collect {|attachment| attachment[0]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+    </div>
+
+    <div class="uk-margin">
+      <div>
+        <%= form.label :pdf_label, "Attacher un document", class: 'uk-form-label' %>
+      </div>
+      <%= form.file_field :pdf %>
+    </div>
+
+    <div class="uk-margin-medium">
+      <%= link_to 'Retour', attachments_path, class: 'uk-button uk-button-default' %>
+      <%= form.submit "Enregistrer", class: 'uk-button uk-button-primary' %>
+    </div>
+  </fieldset>
+<% end %>

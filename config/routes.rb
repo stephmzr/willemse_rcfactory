@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attachments
   resources :contenu_commandes
   resources :detail_commandes
   resources :liste_documents
