@@ -1,0 +1,46 @@
+.tm-main {
+  margin-left: 240px;
+
+  @media screen and (max-width: 959px) {
+    margin-left: 0;
+  }
+
+  @media screen and (min-width: 1400px) {
+    margin-left: 300px;
+  }
+}
+
+span.select2.select2-container {
+  width: 100% !important;
+}
+
+.tr-transparent {
+  background-color:rgba(0, 0, 0, 0) !important;
+}
+
+.tr-transparent > td {
+  padding: 5px 0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+  font-size: 14px;
+}
+
+.no-border-top {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: 0 !important;
+}
+
+.text-bolder {
+  font-weight: bold !important;
+}
+
+.order-separation {
+  height: 20px;
+  background-color: #4cb42e;
+}

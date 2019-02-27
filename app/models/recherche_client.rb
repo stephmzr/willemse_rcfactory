@@ -1,0 +1,2 @@
+class RechercheClient < SqlServerDb
+end

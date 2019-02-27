@@ -1,0 +1,57 @@
+<%= form_with(model: recherche_client, local: true) do |form| %>
+  <% if recherche_client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recherche_client.errors.count, "error") %> prohibited this recherche_client from being saved:</h2>
+
+      <ul>
+      <% recherche_client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ct_num %>
+    <%= form.text_field :ct_num, id: :recherche_client_ct_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_type %>
+    <%= form.number_field :ct_type, id: :recherche_client_ct_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_classement %>
+    <%= form.text_field :ct_classement, id: :recherche_client_ct_classement %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_adresse %>
+    <%= form.text_field :ct_adresse, id: :recherche_client_ct_adresse %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_codepostal %>
+    <%= form.text_field :ct_codepostal, id: :recherche_client_ct_codepostal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_ville %>
+    <%= form.text_field :ct_ville, id: :recherche_client_ct_ville %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_email %>
+    <%= form.text_field :ct_email, id: :recherche_client_ct_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_telephone %>
+    <%= form.text_field :ct_telephone, id: :recherche_client_ct_telephone %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

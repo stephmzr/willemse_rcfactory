@@ -1,0 +1,12 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <h1 class="uk-heading-primary">
+        <%= link_to 'Retour', detail_commandes_path(client_num: @params[:client_num], search: @params[:search],
+                                                    do_piece: @params[:do_piece], do_type: @params[:do_type]), class: 'uk-button uk-button-default' %>
+        Nouvelle Interaction
+      </h1>
+    </div>
+    <%= render 'form', interaction: @interaction %>
+  </div>
+</div>

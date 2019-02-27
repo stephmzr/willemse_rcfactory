@@ -1,0 +1,94 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-medium" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <% if @params[:do_piece].present? %>
+            <%= link_to 'Retour', detail_commandes_path(client_num: @interaction.ct_num, search: @params[:search],
+                                                        do_piece: @interaction.do_piece, do_type: @interaction.do_type), class: 'uk-button uk-button-default' %>
+          <% else %>
+            <%= link_to 'Retour', fiche_clients_path(client_num: @interaction.ct_num, search: @params[:search]), class: 'uk-button uk-button-default' %>
+          <% end %>
+          <%= I18n.t("complaint_kind.#{@interaction.object}") %>
+          <% if @interaction.date.present? %>
+            - <%= @interaction.date.strftime('%d/%m/%Y') %>
+          <% end %>
+        </h1>
+      </div>
+      <div class="uk-width-auto@m">
+        <% if @interaction.do_piece.present? %>
+          <% if @interaction.complaint.present? %>
+            <%= link_to 'Voir réclamation', complaint_path(id: @interaction.complaint.id, client_num: @interaction.ct_num,
+                                                           search: @params[:search]), class: 'uk-button uk-button-default' %>
+          <% else %>
+            <%= link_to 'Nouvelle réclamation', new_complaint_path(client_num: @interaction.ct_num, search: @params[:search],
+                                                                   interaction_id: @interaction.id), class: 'uk-button uk-button-default' %>
+          <% end %>
+        <% end %>
+        <%= link_to 'Modifier', edit_interaction_path(id: @interaction.id, search: @params[:search]), class: 'uk-button uk-button-primary' %>
+        <%= link_to 'Supprimer', interaction_path(id: @interaction.id, client_num: @interaction.ct_num,
+                                                  search: @params[:search], do_piece: @interaction.do_piece,
+                                                  do_type: @interaction.do_type), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'uk-button uk-button-danger' %>
+      </div>
+    </div>
+
+    <div class="uk-overflow-auto">
+      <table class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive">
+        <tbody>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro client</td>
+          <td><%= @interaction.ct_num %></td>
+        </tr>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro document</td>
+          <td><%= @interaction.do_piece %></td>
+        </tr>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Type</td>
+          <td><%= I18n.t("contact_method.#{@interaction.kind}") %></td>
+        </tr>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Contact</td>
+          <td><%= @interaction.contact %></td>
+        </tr>
+        <% if @interaction.suggested_cagnotte_amount %>
+          <tr>
+            <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Cagnotte suggerée</td>
+            <td><%= @interaction.suggested_cagnotte_amount %>€</td>
+          </tr>
+        <% end %>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Statut</td>
+          <td>
+            <%= I18n.t("status.#{@interaction.status}") %>
+          </td>
+        </tr>
+        <tr>
+          <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Résumé de l'intéraction</td>
+          <td><%= simple_format(@interaction.summary) %></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h3 class="uk-margin-small">Documents</h3>
+      <% if @interaction.attachments.present? %>
+        <table>
+          <tbody>
+          <% @interaction.attachments.each do |attachment| %>
+            <tr>
+              <td><%= link_to attachment.file_file_name, url_for(attachment.file.url), target: :_blank %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <div class="uk-margin">
+          <span class="uk-text-muted uk-text-xmedium">Aucun document lié à cette interaction.</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

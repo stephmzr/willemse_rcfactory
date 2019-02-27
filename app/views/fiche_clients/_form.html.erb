@@ -1,0 +1,87 @@
+<%= form_with(model: fiche_client, local: true) do |form| %>
+  <% if fiche_client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fiche_client.errors.count, "error") %> prohibited this fiche_client from being saved:</h2>
+
+      <ul>
+      <% fiche_client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ct_num %>
+    <%= form.text_field :ct_num, id: :fiche_client_ct_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_intitule %>
+    <%= form.text_field :ct_intitule, id: :fiche_client_ct_intitule %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_civilite %>
+    <%= form.text_field :ct_civilite, id: :fiche_client_ct_civilite %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_nom %>
+    <%= form.text_field :ct_nom, id: :fiche_client_ct_nom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_prenom %>
+    <%= form.text_field :ct_prenom, id: :fiche_client_ct_prenom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_adresse %>
+    <%= form.text_field :ct_adresse, id: :fiche_client_ct_adresse %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_complement %>
+    <%= form.text_field :ct_complement, id: :fiche_client_ct_complement %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_codepostal %>
+    <%= form.text_field :ct_codepostal, id: :fiche_client_ct_codepostal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_ville %>
+    <%= form.text_field :ct_ville, id: :fiche_client_ct_ville %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_pays %>
+    <%= form.text_field :ct_pays, id: :fiche_client_ct_pays %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_email %>
+    <%= form.text_field :ct_email, id: :fiche_client_ct_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_telephone %>
+    <%= form.text_field :ct_telephone, id: :fiche_client_ct_telephone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ct_telportable %>
+    <%= form.text_field :ct_telportable, id: :fiche_client_ct_telportable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :solde_cagnotte %>
+    <%= form.number_field :solde_cagnotte, id: :fiche_client_solde_cagnotte %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
