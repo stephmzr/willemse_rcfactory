@@ -13,6 +13,7 @@ set :ssh_options, { :forward_agent => true }
 
 set :yarn_flags, '--quiet'
 
+set :branch, ENV['BRANCH'] if ENV['BRANCH']
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
