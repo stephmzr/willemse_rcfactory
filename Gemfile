@@ -26,6 +26,7 @@ gem 'capistrano-passenger'
 gem 'capistrano-yarn'
 gem 'aws-sdk-s3'
 gem 'rest-client'
+gem 'httparty'
 
 
 group :development, :test do

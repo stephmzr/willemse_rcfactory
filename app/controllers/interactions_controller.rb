@@ -86,15 +86,50 @@ class InteractionsController < ApplicationController
   end
 
   def cagnottage
+    # interaction = Interaction.find(params[:id])
+    # body = {
+    #     "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+    #     "codeTiers": interaction.ct_num,
+    #     "montant": params[:amount].to_f,
+    #     "motif": params[:motif]
+    # }
+    # begin
+    #   response = RestClient.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient', body.to_json, {content_type: :json, accept: :json})
+    #   json_body = JSON.parse(response.body)
+    #   if (response.code == 200)
+    #     if (json_body['erreur'])
+    #       interaction.action_status = 2
+    #       interaction.error_message = json_body['message']
+    #       if interaction.save
+    #         render json: json_body['message'], status: :error
+    #       else
+    #         render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+    #       end
+    #     else
+    #       interaction.action_status = 1
+    #       interaction.status = 'closed'
+    #       if interaction.save
+    #         head :ok
+    #       else
+    #         render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+    #       end
+    #     end
+
+    #   else
+    #     render json: response, status: :internal_server_error
+    #   end
+    # rescue RestClient::ExceptionWithResponse => e
+    #   render json: e.response, status: :internal_server_error
+    # end
     interaction = Interaction.find(params[:id])
-    body = {
+    response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
+      :body => {
         "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
         "codeTiers": interaction.ct_num,
         "montant": params[:amount].to_f,
         "motif": params[:motif]
-    }
-    begin
-      response = RestClient.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient', body.to_json, {content_type: :json, accept: :json})
+      }.to_json,
+      :headers => { 'Content-Type' => 'application/json'})
       json_body = JSON.parse(response.body)
       if (response.code == 200)
         if (json_body['erreur'])
@@ -114,13 +149,9 @@ class InteractionsController < ApplicationController
             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
           end
         end
-
       else
         render json: response, status: :internal_server_error
       end
-    rescue RestClient::ExceptionWithResponse => e
-      render json: e.response, status: :internal_server_error
-    end
   end
 
   private

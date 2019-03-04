@@ -65,7 +65,7 @@
           </td>
           <td><%= complaint.client_name %></td>
           <td><%= I18n.t("contact_method.#{complaint.contact_method}") %></td>
-          <td id="refund_type"><%= I18n.t("refund_type.#{complaint.refund_type}") unless complaint.refund_type.nil? %></td>
+          <td id="actiontype"><%= I18n.t("refund_type.#{complaint.refund_type}") unless complaint.refund_type.nil? %></td>
           <td><%= I18n.t("complaint_mode.#{complaint.mode}") unless complaint.mode.nil? %></td>
           <td><%= "% .2f" % complaint.total_reclam %>€</td>
           <td id="status">
@@ -154,9 +154,12 @@
           </td>
           <td><%= interaction.client_name %></td>
           <td><%= I18n.t("contact_method.#{interaction.kind}") %></td>
+          <td id="actiontype"><%if interaction.suggested_cagnotte_amount!=0%>
+            <%= "Cagnotte" %>
+          <% end %>
+          </td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td><%= "% .2f" % interaction.suggested_cagnotte_amount %>€</td>
           <td id="status">
             <%= I18n.t("status.#{interaction.status}") %>
             <% if interaction.action_status == 1 %>
@@ -259,7 +262,7 @@
             $(this).parents('tr').children('td#status_select').removeClass('uk-hidden');
             $(this).parents('tr').find('#edit').addClass('uk-hidden');
             $(this).parents('tr').find('#confirm').removeClass('uk-hidden');
-            if(table.cell($(this).parents('tr').children('td#refund_type')).data()=="Cagnotte")
+            if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="Cagnotte")
             {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
             }
             $(this).parents('tr').find('#cancel').removeClass('uk-hidden');

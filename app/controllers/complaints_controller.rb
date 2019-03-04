@@ -19,13 +19,13 @@ class ComplaintsController < ApplicationController
 
       result = FicheClient.execute_procedure "p_ficheclient", complaint.interaction.ct_num
       fiche_client = result[0]
-       complaint.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
+      complaint.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
     end
-    @interactions = Interaction.where(do_piece: "")
+    @interactions = Interaction.where(do_piece: "").where("status<?",2)
     @interactions.each do |interaction|
       result = FicheClient.execute_procedure "p_ficheclient", interaction.ct_num
       fiche_client = result[0]
-      #interaction.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
+      interaction.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
     end
   end
 
