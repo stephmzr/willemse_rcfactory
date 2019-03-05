@@ -1,0 +1,28 @@
+.tm-navbar {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
+  background: white;
+  transition: all 0.3s ease;
+}
+.tm-navbar .uk-navbar-nav > li > a,
+.tm-navbar .uk-navbar-nav > li > a:focus {
+  color: #a2a2a2;
+
+  &:hover {
+    color: #47a52a;
+  }
+}
+.tm-navbar .uk-navbar-nav > li > a.active {
+  color: #4CB42E;
+
+  &:hover {
+    color: #47a52a;
+  }
+}
+.tm-navbar .uk-navbar-right .uk-navbar-nav > li > a,
+.tm-navbar .uk-navbar-right .uk-navbar-nav > li > a:focus {
+  color: #47a52a;
+
+  &:hover {
+    color: #4CB42E;
+  }
+}

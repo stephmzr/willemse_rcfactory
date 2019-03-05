@@ -1,0 +1,376 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          Réclamations
+        </h1>
+      </div>
+    </div>
+
+    <table id="complaints_table" class="uk-table uk-table-striped uk-table-xsmall">
+      <thead>
+      <tr>
+        <th class="uk-hidden">id</th>
+        <th class="uk-hidden">type</th>
+        <th data-orderable="false"></th>
+        <th class="uk-text-bold uk-text-uppercase">Date</th>
+        <th class="uk-text-bold uk-text-uppercase">Opérateur</th>
+        <th class="uk-text-bold uk-text-uppercase">Ref Commande</th>
+        <th class="uk-text-bold uk-text-uppercase">N° Client</th>
+        <th class="uk-text-bold uk-text-uppercase">Nom Prénom</th>
+        <th class="uk-text-bold uk-text-uppercase">Interaction</th>
+        <th class="uk-text-bold uk-text-uppercase">Type action</th>
+        <th class="uk-text-bold uk-text-uppercase">Mode paiement</th>
+        <th class="uk-text-bold uk-text-uppercase">Montant TTC</th>
+        <th class="uk-text-bold uk-text-uppercase uk-width-1-14">Statut</th>
+        <th data-orderable="false" class="uk-hidden"></th>
+        <th data-orderable="false" class="uk-width-1-13"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @complaints.each do |complaint| %>
+        <tr>
+          <td id="id" class="uk-hidden"><%= complaint.id %></td>
+          <td id="type" class="uk-hidden">complaint</td>
+          <td class="uk-flex uk-flex-center">
+            <ul class="uk-iconnav">
+              <li>
+                <%= link_to complaint_path(complaint), target: :_blank do %>
+                  <span uk-icon="search"></span>
+                <% end %>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <% if complaint.interaction.date.present? %>
+              <%= complaint.interaction.date.strftime('%d/%m/%Y') %>
+            <% end %>
+          </td>
+          <td><%= complaint.interaction.contact %></td>
+          <td id="do_piece">
+            <%= link_to detail_commandes_path(do_piece: complaint.interaction.do_piece, do_type: complaint.interaction.do_type,
+                                              client_num: complaint.interaction.ct_num), target: :_blank do %>
+              <%= complaint.interaction.do_piece %>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to fiche_clients_path(client_num: complaint.interaction.ct_num), target: :_blank do %>
+              <%= complaint.interaction.ct_num %>
+            <% end %>
+          </td>
+          <td><%= complaint.client_name %></td>
+          <td><%= I18n.t("contact_method.#{complaint.contact_method}") %></td>
+          <td id="refund_type"><%= I18n.t("refund_type.#{complaint.refund_type}") unless complaint.refund_type.nil? %></td>
+          <td><%= I18n.t("complaint_mode.#{complaint.mode}") unless complaint.mode.nil? %></td>
+          <td><%= "% .2f" % complaint.total_reclam %>€</td>
+          <td id="status">
+            <%= I18n.t("status.#{complaint.interaction.status}") %>
+            <% if complaint.action_status == 1 %>
+              <%= image_tag("euro.png", {style: "height: 20px"}) %>
+            <% elsif complaint.action_status == 2 %>
+              <%= image_tag("warning.png", {style: "height: 20px", 'uk-tooltip': complaint.error_message}) %>
+            <% end %>
+          </td>
+          <td id="status_select" class="uk-hidden">
+            <%= select_tag :status, options_for_select(Interaction.statuses.collect {|status| [I18n.t("status.#{status[0]}"), status[0]]},
+                                                       complaint.interaction.status), {class: 'uk-select', style: 'height: 25px'} %>
+          </td>
+          <td class="uk-flex uk-flex-center">
+            <ul class="uk-iconnav">
+              <li>
+                <span uk-icon="pencil" id="edit" class="uk-link uk-icon"></span>
+                <span uk-icon="check" id="confirm" class="uk-hidden uk-link uk-icon"></span>
+                <span uk-icon="close" id="cancel" class="uk-hidden uk-link uk-icon"></span>
+              </li>
+            </ul>
+            <a href="#modal-complaint-<%= complaint.id %>" id="confirm_action" class="uk-button-primary uk-hidden" style="padding: 2px 5px" uk-toggle>Valider</a>
+          </td>
+        </tr>
+        <div id="modal-complaint-<%= complaint.id %>" uk-modal>
+          <div class="uk-modal-dialog uk-modal-body">
+            <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
+            <p>
+              Réclamation de <%= complaint.client_name %> <br/>
+              Type : <%= I18n.t("refund_type.#{complaint.refund_type}") %> <br/>
+              Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{complaint.kind}") %></span>
+            </p>
+            <% if complaint.refund_type == "cagnotte" %>
+              <div class="uk-margin">
+                Vous êtes sur le point de cagnotter <span id="modal_amount" class="uk-text-bold"><%= "% .2f" % complaint.total_reclam %></span>€, êtes-vous sûr ?
+              </div>
+            <% else %>
+              <p>
+                Vous êtes sur le point de valider un <%= I18n.t("refund_type.#{complaint.refund_type}") %> d'une valeur de
+                <span id="modal_amount" class="uk-text-bold"><%= "% .2f" % complaint.total_reclam %></span>€, êtes-vous sûr ?<br/>
+              </p>
+              <p class="uk-text-danger">
+                Attention : Vous devez pour le moment effectuer la transformation dans SAGE.
+                <% if complaint.refund_type == "remboursement" %>
+                  <br/>Attention : Vous devez effectuer le remboursement sur la plateforme de paiement (CIC, Paypal…)
+                <% end %>
+              </p>
+            <% end %>
+
+            <p class="uk-text-right">
+              <button id="cancel_action_button" class="uk-button uk-button-default uk-modal-close" type="button">Annuler</button>
+              <button id="confirm_action_button" class="uk-button uk-button-primary" type="button">Confirmer</button>
+            </p>
+          </div>
+        </div>
+      <% end %>
+      <% @interactions.each do |interaction| %>
+        <tr>
+          <td id="id" class="uk-hidden"><%= interaction.id %></td>
+          <td id="type" class="uk-hidden">interaction</td>
+          <td class="uk-flex uk-flex-center">
+            <ul class="uk-iconnav">
+              <li>
+                <%= link_to interaction_path(interaction), target: :_blank do %>
+                  <span uk-icon="search"></span>
+                <% end %>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <% if interaction.date.present? %>
+              <%= interaction.date.strftime('%d/%m/%Y') %>
+            <% end %>
+          </td>
+          <td><%= interaction.contact %></td>
+          <td>
+            <%= link_to detail_commandes_path(do_piece: interaction.do_piece), target: :_blank do %>
+            <%= interaction.do_piece %>
+            <% end %>         
+          </td>
+          <td>
+            <%= link_to fiche_clients_path(client_num: interaction.ct_num), target: :_blank do %>
+              <%= interaction.ct_num %>
+            <% end %>
+          </td>
+          <td><%= interaction.client_name %></td>
+          <td><%= I18n.t("contact_method.#{interaction.kind}") %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td id="status">
+            <%= I18n.t("status.#{interaction.status}") %>
+            <% if interaction.action_status == 1 %>
+              <%= image_tag("euro.png", {style: "height: 20px"}) %>
+            <% elsif interaction.action_status == 2 %>
+              <%= image_tag("warning.png", {style: "height: 20px", 'uk-tooltip': interaction.error_message}) %>
+            <% end %>
+          </td>
+          <td id="status_select" class="uk-hidden">
+            <%= select_tag :status, options_for_select(Interaction.statuses.collect {|status| [I18n.t("status.#{status[0]}"), status[0]]},
+                                                       interaction.status), {class: 'uk-select', style: 'height: 25px'} %>
+          </td>
+          <td class="uk-flex uk-flex-center">
+            <ul class="uk-iconnav">
+              <li>
+                <span uk-icon="pencil" id="edit" class="uk-link uk-icon"></span>
+                <span uk-icon="check" id="confirm" class="uk-hidden uk-link uk-icon"></span>
+                <span uk-icon="close" id="cancel" class="uk-hidden uk-link uk-icon"></span>
+              </li>
+            </ul>
+            <a href="#modal-interaction-<%= interaction.id %>" id="confirm_action" class="uk-button-primary uk-hidden" style="padding: 2px 5px" uk-toggle>Valider</a>
+          </td>
+        </tr>
+
+        <div id="modal-interaction-<%= interaction.id %>" uk-modal>
+          <div class="uk-modal-dialog uk-modal-body">
+            <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
+            <p>
+              Réclamation de <%= interaction.client_name %> <br/>
+              Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{interaction.object}") %></span>
+            </p>
+
+            <div class="uk-margin">
+              Vous êtes sur le point de cagnotter <span id="modal_amount" class="uk-text-bold"><%= interaction.suggested_cagnotte_amount || 0 %></span>€, êtes-vous sûr ?
+            </div>
+
+            <p class="uk-text-right">
+              <button id="cancel_action_button" class="uk-button uk-button-default uk-modal-close" type="button">Annuler</button>
+              <button id="confirm_action_button" class="uk-button uk-button-primary" type="button">Confirmer</button>
+            </p>
+          </div>
+        </div>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let table = $('#complaints_table').DataTable({
+            paging: true,
+            info: true,
+            pageLength: 50,
+            lengthChange: false,
+            searching: true,
+            language: {
+                paginate: {
+                    previous: "Précédent",
+                    next: "Suivant"
+                },
+                search: "_INPUT_",
+                searchPlaceholder: "Rechercher...",
+                lengthMenu: "Affiche _MENU_ réclamations par page",
+                zeroRecords: "Aucune réclamation trouvée",
+                info: "Réclamations _START_ à _END_ sur _TOTAL_ trouvées",
+                infoEmpty: "Aucune réclamation disponible",
+                infoFiltered: "(filtré à partir de _MAX_ réclamations totales)"
+            },
+            columnDefs: [
+                {targets: 3, type: 'date-eu'}
+            ],
+            order: [[3, 'desc']],
+        });
+        table.column(12).search("En cours").draw();
+
+        $("div.toolbar").html('<select name="status_select" id="status_select" class="uk-select uk-width-medium">' +
+            '<option value="Ouvert">Ouvert</option>' +
+            '<option value="En cours" selected>En cours</option>' +
+            //#'<option value="Fermée">Fermée</option>' +
+            '<option value="Tout afficher">Tout afficher</option>' +
+            '</select>');
+
+        $('#status_select', this).on('keyup change', function () {
+            if (this.value === "Tout afficher") {
+                table.column(12).search('').draw();
+            } else if (table.column(12).search() !== this.value) {
+                table
+                    .column(12)
+                    .search(this.value)
+                    .draw();
+            }
+            $('a#confirm_action').on('click', function() {
+                $(this).parents('tr').addClass('selected-row');
+            });
+        } );
+
+        $('#complaints_table').on('click', '#edit', function () {
+            $(this).parents('tr').children('td#status').addClass('uk-hidden');
+            $(this).parents('tr').children('td#status_select').removeClass('uk-hidden');
+            $(this).parents('tr').find('#edit').addClass('uk-hidden');
+            $(this).parents('tr').find('#confirm').removeClass('uk-hidden');
+            if(table.cell($(this).parents('tr').children('td#refund_type')).data()=="Cagnotte")
+            {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
+            }
+            $(this).parents('tr').find('#cancel').removeClass('uk-hidden');
+        });
+
+        $('#complaints_table').on('click', '#confirm', function () {
+            const selected_option = $(this).parents('tr').find('select#status option:selected');
+            const id = table.cell($(this).parents('tr').children('td#id')).data();
+            const status_to_update = $(this).parents('tr').children('td#status');
+
+            const do_piece = table.cell($(this).parents('tr').children('td#do_piece')).data();
+            let url = location.origin;
+            if (do_piece == null) {
+                url = url + "/interactions/" + id + "/update_status";
+            } else {
+                url = url + "/complaints/" + id + "/update_status";
+            }
+
+            $.post(url,
+                {
+                    status: selected_option.val()
+                },
+                function () {
+                    table.cell(status_to_update).data(selected_option.text()).draw();
+                })
+                .fail(function () {
+                    alert("error");
+                });
+
+            $(this).parents('tr').children('td#status').removeClass('uk-hidden');
+            $(this).parents('tr').children('td#status_select').addClass('uk-hidden');
+            $(this).parents('tr').find('#edit').removeClass('uk-hidden');
+            $(this).parents('tr').find('#confirm').addClass('uk-hidden');
+            $(this).parents('tr').find('#confirm_action').addClass('uk-hidden');
+            $(this).parents('tr').find('#cancel').addClass('uk-hidden');
+        });
+
+        $('#complaints_table').on('click', '#cancel', function () {
+            $(this).parents('tr').children('td#status').removeClass('uk-hidden');
+            $(this).parents('tr').children('td#status_select').addClass('uk-hidden');
+            $(this).parents('tr').find('#edit').removeClass('uk-hidden');
+            $(this).parents('tr').find('#confirm').addClass('uk-hidden');
+            $(this).parents('tr').find('#confirm_action').addClass('uk-hidden');
+            $(this).parents('tr').find('#cancel').addClass('uk-hidden');
+        });
+
+        $('a#confirm_action').on('click', function() {
+            $(this).parents('tr').addClass('selected-row');
+        });
+
+        $('button#cancel_action_button').on('click', function () {
+            $('#complaints_table').find('tr.selected-row').removeClass('selected-row');
+        });
+
+        $('button#confirm_action_button').on('click', function () {
+            const selected_row = $('#complaints_table').find('tr.selected-row');
+            const status_cell = $(selected_row).find("td#status");
+            const modal = $(this).parents('div')[1];
+            const uikit_modal = UIkit.modal('#' + modal.id);
+            const isComplaint = modal.id.startsWith("modal-complaint");
+            let modal_id = 0;
+
+            let motif, amount;
+            if (isComplaint) {
+                modal_id = modal.id.substr("modal-complaint-".length);
+                motif = $(modal).find('#modal_motif').text();
+                amount = $(modal).find('#modal_amount').text();
+                console.log("motif : " + motif);
+                console.log("montant : " + amount);
+            } else {
+                modal_id = modal.id.substr("modal-interaction-".length);
+                motif = $(modal).find('#modal_motif').text();
+                amount = $(modal).find('#modal_amount').text();
+                console.log("motif : " + motif);
+                console.log("montant : " + amount);
+            }
+
+            $(status_cell).removeClass('uk-hidden');
+            $(selected_row).children('td#status_select').addClass('uk-hidden');
+            $(selected_row).find('#edit').removeClass('uk-hidden');
+            $(selected_row).find('#confirm').addClass('uk-hidden');
+            $(selected_row).find('#confirm_action').addClass('uk-hidden');
+            $(selected_row).find('#cancel').addClass('uk-hidden');
+
+            let url = location.origin;
+            if (isComplaint) {
+                url = url + "/complaints/" + modal_id + "/cagnottage";
+            } else {
+                url = url + "/interactions/" + modal_id + "/cagnottage";
+            }
+
+            $.post(url,
+                {
+                    amount: amount,
+                    motif: motif
+                },
+                function () {
+                    $('#complaints_table').find('tr.selected-row').removeClass('selected-row');
+                    uikit_modal.hide();
+                    const updated_data = 'Fermée' + '<%= image_tag("euro.png", {style: "height: 20px; margin-left: 5px"}) %>';
+                    table.cell(status_cell).data(updated_data).draw();
+                })
+                .fail(function (data) {
+                    $('#complaints_table').find('tr.selected-row').removeClass('selected-row');
+                    uikit_modal.hide();
+                    const updated_data = table.cell(status_cell).data() + '<%= image_tag("warning.png", {style: "height: 20px; margin-left: 5px", class: "tooltipToAdd" }) %>';
+                    table.cell(status_cell).data(updated_data).draw();
+                    $('#complaints_table').find('img.tooltipToAdd').attr("uk-tooltip", data.responseText);
+                    $('#complaints_table').find('img.tooltipToAdd').removeClass('tooltipToAdd');
+                    alert(data.responseText);
+                });
+        });
+    });
+</script>

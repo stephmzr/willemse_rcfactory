@@ -1,0 +1,16 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <%= link_to 'Retour', complaint_path(@variables[:complaint], search: @params[:search]), class: 'uk-button uk-button-default' %>
+          Modification de Réclamation
+        </h1>
+      </div>
+      <div class="uk-width-auto@m">
+        <%= link_to 'Supprimer la réclamation', complaint_path(@variables[:complaint], search: @params[:search]), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'uk-button uk-button-danger' %>
+      </div>
+    </div>
+    <%= render 'form', complaint: @variables[:complaint] %>
+  </div>
+</div>

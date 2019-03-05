@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @complaint_answer.text %>
+</p>
+
+<p>
+  <strong>Complaint kind:</strong>
+  <%= @complaint_answer.complaint_kind %>
+</p>
+
+<p>
+  <strong>Opinion:</strong>
+  <%= @complaint_answer.opinion %>
+</p>
+
+<p>
+  <strong>Question number:</strong>
+  <%= @complaint_answer.question_number %>
+</p>
+
+<p>
+  <strong>Extra info:</strong>
+  <%= @complaint_answer.extra_info %>
+</p>
+
+<p>
+  <strong>Summary text:</strong>
+  <%= @complaint_answer.summary_text %>
+</p>
+
+<p>
+  <strong>Coef:</strong>
+  <%= @complaint_answer.coef %>
+</p>
+
+<%= link_to 'Edit', edit_complaint_answer_path(@complaint_answer) %> |
+<%= link_to 'Back', complaint_answers_path %>
