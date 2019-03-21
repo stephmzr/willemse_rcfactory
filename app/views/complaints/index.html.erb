@@ -181,11 +181,11 @@
             ],
             order: [[3, 'desc']],
         });
-        table.column(12).search("En cours").draw();
+        table.column(12).search("Ouvert").draw();
 
         $("div.toolbar").html('<select name="status_select" id="status_select" class="uk-select uk-width-medium">' +
-            '<option value="Ouvert">Ouvert</option>' +
-            '<option value="En cours" selected>En cours</option>' +
+            '<option value="Ouvert" selected>Ouvert</option>' +
+            '<option value="En cours" >En cours</option>' +
             //#'<option value="Fermée">Fermée</option>' +
             '<option value="Tout afficher">Tout afficher</option>' +
             '</select>');

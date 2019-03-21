@@ -246,7 +246,7 @@ class ComplaintsController < ApplicationController
   def update_status
     complaint = Complaint.find(params[:id])
     complaint.complaint_status = params[:status]
-    if complaint.interaction.save
+    if complaint.save!
       head :ok
     else
       head :error
