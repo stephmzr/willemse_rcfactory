@@ -57,4 +57,10 @@ enum mode: {
     rien: 5,
     cagnotte: 6
 }
+
+enum complaint_status: {
+    open: 0,
+    ongoing: 1,
+    closed: 2
+}
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181030084514) do
+ActiveRecord::Schema.define(version: 20190225095903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20181030084514) do
     t.bigint "file_file_size"
     t.datetime "file_updated_at"
     t.index ["interaction_id"], name: "index_attachments_on_interaction_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "commentaires", force: :cascade do |t|
+    t.string "auteur"
+    t.string "contenu"
+    t.integer "articles_id"
+    t.index ["articles_id"], name: "index_commentaires_on_articles_id"
   end
 
   create_table "complaint_answers", force: :cascade do |t|
@@ -85,6 +96,7 @@ ActiveRecord::Schema.define(version: 20181030084514) do
     t.integer "mode"
     t.integer "action_status"
     t.string "error_message"
+    t.integer "complaint_status"
     t.index ["interaction_id"], name: "index_complaints_on_interaction_id"
   end
 
