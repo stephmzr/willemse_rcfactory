@@ -1,0 +1,67 @@
+<%= form_with(model: contenu_commande, local: true) do |form| %>
+  <% if contenu_commande.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contenu_commande.errors.count, "error") %> prohibited this contenu_commande from being saved:</h2>
+
+      <ul>
+      <% contenu_commande.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :do_piece %>
+    <%= form.text_field :do_piece, id: :contenu_commande_do_piece %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ar_ref %>
+    <%= form.text_field :ar_ref, id: :contenu_commande_ar_ref %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dl_design %>
+    <%= form.text_field :dl_design, id: :contenu_commande_dl_design %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dl_qte %>
+    <%= form.number_field :dl_qte, id: :contenu_commande_dl_qte %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dl_puttc %>
+    <%= form.text_field :dl_puttc, id: :contenu_commande_dl_puttc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remise %>
+    <%= form.number_field :remise, id: :contenu_commande_remise %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dl_montantttc %>
+    <%= form.text_field :dl_montantttc, id: :contenu_commande_dl_montantttc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ldf %>
+    <%= form.text_field :ldf, id: :contenu_commande_ldf %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code_statut %>
+    <%= form.text_field :code_statut, id: :contenu_commande_code_statut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nomenclature %>
+    <%= form.text_field :nomenclature, id: :contenu_commande_nomenclature %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,52 @@
+<%= form_with(model: complaint_answer, local: true) do |form| %>
+  <% if complaint_answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(complaint_answer.errors.count, "error") %> prohibited this complaint_answer from being saved:</h2>
+
+      <ul>
+      <% complaint_answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :text %>
+    <%= form.text_field :text, id: :complaint_answer_text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complaint_kind %>
+    <%= form.number_field :complaint_kind, id: :complaint_answer_complaint_kind %>
+  </div>
+
+  <div class="field">
+    <%= form.label :opinion %>
+    <%= form.number_field :opinion, id: :complaint_answer_opinion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question_number %>
+    <%= form.number_field :question_number, id: :complaint_answer_question_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :extra_info %>
+    <%= form.text_field :extra_info, id: :complaint_answer_extra_info %>
+  </div>
+
+  <div class="field">
+    <%= form.label :summary_text %>
+    <%= form.text_field :summary_text, id: :complaint_answer_summary_text %>
+  </div>
+
+  <div class="field">
+    <%= form.label :coef %>
+    <%= form.number_field :coef, id: :complaint_answer_coef %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

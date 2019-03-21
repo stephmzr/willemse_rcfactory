@@ -1,0 +1,52 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <%= link_to 'Retour', edit_complaint_path(@variables[:complaint], search: @params[:search]), class: 'uk-button uk-button-default' %>
+          Nouvelle Réclamation
+        </h1>
+      </div>
+      <div class="uk-width-auto@m">
+        <%= link_to 'Supprimer la réclamation', complaint_path(@variables[:complaint], search: @params[:search]), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'uk-button uk-button-danger' %>
+      </div>
+    </div>
+
+    <% if @variables[:complaint].kind == 'defraichi' %>
+      <%= render 'complaints/form_type/defraichi', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'manquant' %>
+      <%= render 'complaints/form_type/manquant', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'reprise_moins_8_mois' %>
+      <%= render 'complaints/form_type/reprise_moins_8_mois', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'reprise_plus_8_mois' %>
+      <%= render 'complaints/form_type/reprise_plus_8_mois', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'non_recue' %>
+      <%= render 'complaints/form_type/non_recue', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'refus' %>
+      <%= render 'complaints/form_type/refus', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'inversion' %>
+      <%= render 'complaints/form_type/inversion', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'casse_horticole' %>
+      <%= render 'complaints/form_type/casse_horticole', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'casse_non_horticole' %>
+      <%= render 'complaints/form_type/casse_non_horticole', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'non_conforme' %>
+      <%= render 'complaints/form_type/non_conforme', complaint: @variables[:complaint] %>
+    <% elsif @variables[:complaint].kind == 'rapide' %>
+      <%= render 'complaints/form_type/rapide', complaint: @variables[:complaint] %>
+    <% end %>
+
+    <div class="order-separation"></div>
+    <ul class="uk-list-large uk-margin-xsmall-top" uk-grid uk-accordion="multiple: true">
+      <li class="uk-open uk-width">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Commande<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <%= render 'commande' %>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</div>

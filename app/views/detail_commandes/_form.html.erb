@@ -1,0 +1,152 @@
+<%= form_with(model: detail_commande, local: true) do |form| %>
+  <% if detail_commande.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(detail_commande.errors.count, "error") %> prohibited this detail_commande from being saved:</h2>
+
+      <ul>
+      <% detail_commande.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :do_piece %>
+    <%= form.text_field :do_piece, id: :detail_commande_do_piece %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_ref %>
+    <%= form.text_field :do_ref, id: :detail_commande_do_ref %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_date %>
+    <%= form.date_select :do_date, id: :detail_commande_do_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ca_num %>
+    <%= form.text_field :ca_num, id: :detail_commande_ca_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :montantttc %>
+    <%= form.text_field :montantttc, id: :detail_commande_montantttc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_valfrais %>
+    <%= form.text_field :do_valfrais, id: :detail_commande_do_valfrais %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_statut %>
+    <%= form.text_field :do_statut, id: :detail_commande_do_statut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :urgent %>
+    <%= form.text_field :urgent, id: :detail_commande_urgent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :point_retrait_relais %>
+    <%= form.text_field :point_retrait_relais, id: :detail_commande_point_retrait_relais %>
+  </div>
+
+  <div class="field">
+    <%= form.label :societe_livraison %>
+    <%= form.text_field :societe_livraison, id: :detail_commande_societe_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nom_livraison %>
+    <%= form.text_field :nom_livraison, id: :detail_commande_nom_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prenom_livraison %>
+    <%= form.text_field :prenom_livraison, id: :detail_commande_prenom_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email_livraison %>
+    <%= form.text_field :email_livraison, id: :detail_commande_email_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telephone_livraison %>
+    <%= form.text_field :telephone_livraison, id: :detail_commande_telephone_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adresse_livraison %>
+    <%= form.text_field :adresse_livraison, id: :detail_commande_adresse_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complement_livraison %>
+    <%= form.text_field :complement_livraison, id: :detail_commande_complement_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code_postal_livraison %>
+    <%= form.text_field :code_postal_livraison, id: :detail_commande_code_postal_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ville_livraison %>
+    <%= form.text_field :ville_livraison, id: :detail_commande_ville_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pays_livraison %>
+    <%= form.text_field :pays_livraison, id: :detail_commande_pays_livraison %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code_avantage %>
+    <%= form.text_field :code_avantage, id: :detail_commande_code_avantage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :decagnottage %>
+    <%= form.text_field :decagnottage, id: :detail_commande_decagnottage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_expedition %>
+    <%= form.date_select :date_expedition, id: :detail_commande_date_expedition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero_tracking %>
+    <%= form.text_field :numero_tracking, id: :detail_commande_numero_tracking %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lien_tracking %>
+    <%= form.text_field :lien_tracking, id: :detail_commande_lien_tracking %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code_partenaire %>
+    <%= form.text_field :code_partenaire, id: :detail_commande_code_partenaire %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motifs_rmbt_recl %>
+    <%= form.text_field :motifs_rmbt_recl, id: :detail_commande_motifs_rmbt_recl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :motifs_retour %>
+    <%= form.text_field :motifs_retour, id: :detail_commande_motifs_retour %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

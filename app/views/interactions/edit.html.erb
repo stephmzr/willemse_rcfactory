@@ -1,0 +1,11 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <h1 class="uk-heading-primary">
+        <%= link_to 'Retour', interaction_path(@interaction), class: 'uk-button uk-button-default' %>
+        Modifier Interaction
+      </h1>
+    </div>
+    <%= render 'form', interaction: @interaction %>
+  </div>
+</div>

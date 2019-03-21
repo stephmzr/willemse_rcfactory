@@ -1,0 +1,426 @@
+<%= form_with(model: complaint, local: true, url: "/complaints/#{complaint.id}/form_second_submit",
+              data: {controller: 'form', form_errors: complaint.errors.messages.keys.join(',')}) do |form| %>
+  <fieldset class="uk-fieldset">
+    <% if complaint.errors.any? %>
+      <div id="error_explanation" class="uk-alert-danger" uk-alert>
+        <h2><%= t("errors.template.header", count: complaint.errors.count, model: 'interaction') %></h2>
+
+        <ul>
+          <% complaint.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>Le client est-il coutumier des réclamations ?</div>
+    <div>A-t-il pris une garantie (Ass livra)</div>
+    <div>Y a-t-il d'autres éléments à considérer qui lui sont plutôt favorables ou défavorables ?</div>
+
+    <div class="uk-margin" uk-grid>
+      <div class="uk-width-1-2">
+        <h3>Les incontournables</h3>
+        <div class="uk-margin">
+          <%= form.label :question, 'Le client est-il coutumier des réclamations ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_1" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 1).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_1', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_1" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_1', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_1').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Le client a-t-il pris une garantie ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_2" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 2).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_2', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_2" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_2', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_2').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Le client (WEB) a-t-il pris une livraison 24/48h ? (48/72h pour les étrangers)', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_3" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 3).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_3', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_3" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_3', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_3').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <h3>L'importance de la réclamation</h3>
+        <div class="uk-margin">
+          <%= form.label :question, 'La valeur de la commande est de', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_4" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 4).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_4', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_4" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_4', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_4').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'La valeur des articles ou de la réclamation est de ', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_5" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 5).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_5', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_5" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_5', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_5').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <h3>Autres à considérer ?</h3>
+        <div class="uk-margin">
+          <%= form.label :question, 'A-t-on expédié sa commande en temps et en heure ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_6" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 6).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_6', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_6" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_6', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_6').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Quelle est la typologie du client ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_7" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 7).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_7', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_7" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_7', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_7').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-width-1-2">
+        <h3>Les éléments variables</h3>
+        <div class="uk-margin">
+          <%= form.label :question, 'Le client a-t-il une constatation du livreur ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_8" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 8).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_8', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_8" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_8', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_8').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Le transporteur a-t-il expédié le colis dans le temps imparti selon le mode de livarison choisi par le client ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_9" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 9).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_9', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_9" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_9', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_9').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Le client nous contacte à la réception du colis (au pire dans les 24h) ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_10" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 10).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_10', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_10" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_10', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_10').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Sur la photo l\'article est-il réellement cassé ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_11" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 11).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_11', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_11" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_11', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_11').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Articles fragiles ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_12" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 12).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_12', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}", checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_12" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_12', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_12').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'A-t-on eu beaucoup de réclamations sur ces articles ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_13" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 13).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_13', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}", checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_13" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_13', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_13').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+
+        <div class="uk-margin">
+          <%= form.label :question, 'Articles LDF ?', class: 'uk-form-label uk-text-bold' %>
+          <span uk-icon="pencil" id="show_input_14" class="uk-link uk-icon" uk-tooltip="Saisie libre"></span>
+          <div class="" uk-grid>
+            <% ComplaintAnswer.where(complaint_kind: 8, question_number: 14).sort_by {|e| e[:answer_number]}.each do |answer| %>
+              <span class="uk-width-1-3 uk-margin-remove-top">
+                <%= form.radio_button 'complaint_answer_14', answer.id, class: 'uk-radio', id: "complaint_answer_#{answer.id}",
+                                      checked: complaint.complaint_answers.where(id: answer.id).present? || answer.answer_number == 1 %>
+                <% if answer.opinion == 'favorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-success' %>
+                <% elsif answer.opinion == 'partagee' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-warning' %>
+                <% elsif answer.opinion == 'defavorable' %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label uk-text-danger' %>
+                <% else %>
+                  <%= form.label "answer_#{answer.id}", answer.text, class: 'uk-form-label' %>
+                <% end %>
+              </span>
+            <% end %>
+            <span id="input_container_14" class="uk-width uk-margin-remove-top uk-hidden">
+              <%= form.text_field 'complaint_answer_input_14', placeholder: 'Saisie libre',
+                                  value: complaint.complaint_free_answers.find_by(answer_id: 'complaint_answer_input_14').try(:text),
+                                  class: 'uk-input', data: {target: 'form.input'} %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= form.hidden_field :search, value: @params[:search] %>
+
+    <div class="uk-margin-medium">
+      <%= link_to 'Retour', edit_complaint_path(complaint, search: @params[:search]), class: 'uk-button uk-button-default' %>
+      <%= form.submit "Suivant", class: 'uk-button uk-button-primary' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<script>
+    $(document).ready(function () {
+        for (let i = 1; i <= 14; i++) {
+            $('#show_input_' + i).on('click', function () {
+                if ($('#input_container_' + i).hasClass('uk-hidden'))
+                    $('#input_container_' + i).removeClass('uk-hidden');
+                else
+                    $('#input_container_' + i).addClass('uk-hidden');
+            });
+        }
+    });
+</script>

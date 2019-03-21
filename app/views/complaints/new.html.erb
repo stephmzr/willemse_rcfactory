@@ -1,0 +1,11 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <h1 class="uk-heading-primary">
+        <%= link_to 'Retour', interaction_path(id: @variables[:complaint].interaction_id, search: @params[:search]), class: 'uk-button uk-button-default' %>
+        Nouvelle Réclamation
+      </h1>
+    </div>
+    <%= render 'form', complaint: @variables[:complaint] %>
+  </div>
+</div>

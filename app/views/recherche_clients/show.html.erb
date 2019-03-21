@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ct num:</strong>
+  <%= @recherche_client.ct_num %>
+</p>
+
+<p>
+  <strong>Ct type:</strong>
+  <%= @recherche_client.ct_type %>
+</p>
+
+<p>
+  <strong>Ct classement:</strong>
+  <%= @recherche_client.ct_classement %>
+</p>
+
+<p>
+  <strong>Ct adresse:</strong>
+  <%= @recherche_client.ct_adresse %>
+</p>
+
+<p>
+  <strong>Ct codepostal:</strong>
+  <%= @recherche_client.ct_codepostal %>
+</p>
+
+<p>
+  <strong>Ct ville:</strong>
+  <%= @recherche_client.ct_ville %>
+</p>
+
+<p>
+  <strong>Ct email:</strong>
+  <%= @recherche_client.ct_email %>
+</p>
+
+<p>
+  <strong>Ct telephone:</strong>
+  <%= @recherche_client.ct_telephone %>
+</p>
+
+<%= link_to 'Edit', edit_recherche_client_path(@recherche_client) %> |
+<%= link_to 'Back', recherche_clients_path %>

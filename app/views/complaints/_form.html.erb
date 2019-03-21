@@ -1,0 +1,153 @@
+<%= form_with(model: complaint, local: true, data: {controller: 'form', form_errors: complaint.errors.messages.keys.join(',')}) do |form| %>
+  <fieldset class="uk-fieldset">
+    <% if complaint.errors.any? %>
+      <div id="error_explanation" class="uk-alert-danger" uk-alert>
+        <h2><%= t("errors.template.header", count: complaint.errors.count, model: 'interaction') %></h2>
+
+        <ul>
+          <% complaint.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="uk-margin uk-grid" uk-grid>
+
+      <div class="uk-hidden">
+        <%= form.text_field :interaction_id %>
+      </div>
+
+      <span class="uk-width-1-3">
+        <%= form.label :kind, "Type de réclamation", class: 'uk-form-label' %>
+        <%= form.select :kind, Complaint.kinds.collect {|kind| [I18n.t("complaint_kind.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+      </span>
+
+      <span class="uk-width-1-3">
+        <%= form.label :contact_method, "Méthode de contact", class: 'uk-form-label' %>
+        <%= form.select :contact_method, Complaint.contact_methods.collect {|kind| [I18n.t("contact_method.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+      </span>
+
+      <span class="uk-width-1-3">
+        <%= form.label :complaint_status, "Statut", class: 'uk-form-label' %>
+        <%= form.select :complaint_status, Complaint.complaint_statuses.collect {|kind| [I18n.t("complaint_status.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+      </span>
+    </div>
+
+    <% if complaint.complaint_articles.present? %>
+      <h4 class="uk-margin-remove">Commande</h4>
+      <div class="uk-width no-padding-left">
+        <table id="order_detail_table" class="uk-table uk-table-middle uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+          <thead>
+          <tr>
+            <th>Ref</th>
+            <th>Libellé</th>
+            <th>Qté</th>
+            <th>PU TTC</th>
+            <th>Remise</th>
+            <th>Total TTC</th>
+            <th data-orderable="false">Sélectionné</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% complaint.complaint_articles.each do |article| %>
+            <tr>
+              <td><%= article.AR_Ref %></td>
+              <td><%= article.DL_Design %></td>
+              <td><%= article.DL_QTE %></td>
+              <td>
+                <% if article.DL_PUTTC.present? %>
+                  <%= "%.2f" % article.DL_PUTTC %>
+                <% end %>
+              </td>
+              <td>
+                <% if article.Remise.present? %>
+                  <%= "%.2f" % article.Remise %></td>
+                <% end %>
+                <td>
+                  <% if article.DL_MontantTTC.present? %>
+                    <%= "%.2f" % article.DL_MontantTTC %>
+                  <% end %>
+                </td>
+                <td><%= form.number_field "number_selected_#{article.AR_Ref}", max: article.DL_QTE, min: 0, value: article.number_selected, class: 'uk-input', style: 'height: 30px' %></td>
+                </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="uk-overflow-auto">
+        <table id="order_detail_table" class="uk-table uk-table-hover uk-table-middle uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+          <thead>
+          <tr>
+            <th>Ref</th>
+            <th>Libellé</th>
+            <th>Qté</th>
+            <th>PU TTC</th>
+            <th>Remise</th>
+            <th>Total TTC</th>
+            <th>LDF</th>
+            <th>Statut</th>
+            <th>Nomenclature</th>
+            <th data-orderable="false">Sélectionné</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% i = 1 %>
+          <% @variables[:contenu_commande].each do |contenu| %>
+            <tr>
+              <td><%= contenu['AR_Ref'] %></td>
+              <td><%= contenu['DL_Design'] %></td>
+              <td><%= contenu['DL_QTE'] %></td>
+              <td><%= "%.2f" % contenu['DL_PUTTC'] %></td>
+              <td><%= "%.2f" % contenu['Remise'] %></td>
+              <td><%= "%.2f" % contenu['DL_MontantTTC'] %></td>
+              <td><%= contenu['LDF'] %></td>
+              <td><%= contenu['Code_statut'] %></td>
+              <td><%= contenu['Nomenclature'] %></td>
+              <td><%= form.number_field "number_selected_#{contenu['AR_Ref']}", max: contenu['DL_QTE'], min: 0, value: 0, class: 'uk-input', style: 'height: 25px' %></td>
+            </tr>
+          <% i = i + 1 %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+    <%= form.hidden_field :search, value: @params[:search] %>
+
+    <div class="uk-margin-medium">
+      <% if complaint.new_record? %>
+        <%= link_to 'Retour', interaction_path(id: complaint.interaction_id, search: @params[:search]), class: 'uk-button uk-button-default' %>
+      <% else %>
+        <%= link_to 'Retour', complaint_path(complaint, search: @params[:search]), class: 'uk-button uk-button-default' %>
+      <% end %>
+      <%= form.submit "Suivant", class: 'uk-button uk-button-primary' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<div class="order-separation"></div>
+<ul class="uk-list-large uk-margin-xsmall-top" uk-grid uk-accordion="multiple: true">
+  <li class="uk-open uk-width">
+    <%= link_to '#', class: 'uk-accordion-title' do %>Commande<% end %>
+    <div class="uk-accordion-content">
+      <div class="uk-overflow-auto">
+        <%= render 'commande' %>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $('#order_detail_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            responsive: true
+        });
+    });
+</script>
