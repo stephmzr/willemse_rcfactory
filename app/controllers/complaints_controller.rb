@@ -3,7 +3,8 @@ class ComplaintsController < ApplicationController
 
   # GET /complaints
   def index
-    @complaints = Complaint.where(interaction_id: Interaction.where("status<?",2))
+    #@complaints = Complaint.where(interaction_id: Interaction.where("status<?",2))
+    @complaints = Complaint.where("complaint_status<?",2)
     @complaints.each do |complaint|
       if complaint.complaint_articles.present?
         complaint.refund_type = complaint.complaint_articles.first.action_type
@@ -19,14 +20,14 @@ class ComplaintsController < ApplicationController
 
       result = FicheClient.execute_procedure "p_ficheclient", complaint.interaction.ct_num
       fiche_client = result[0]
-       complaint.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
+      complaint.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
     end
-    @interactions = Interaction.where(do_piece: "").where("status<?",2)
-    @interactions.each do |interaction|
-      result = FicheClient.execute_procedure "p_ficheclient", interaction.ct_num
-      fiche_client = result[0]
-      interaction.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
-    end
+    # @interactions = Interaction.where(do_piece: "").where("status<?",2)
+    # @interactions.each do |interaction|
+    #   result = FicheClient.execute_procedure "p_ficheclient", interaction.ct_num
+    #   fiche_client = result[0]
+    #   interaction.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
+    # end
   end
 
   # GET /complaints/1
@@ -244,7 +245,7 @@ class ComplaintsController < ApplicationController
 
   def update_status
     complaint = Complaint.find(params[:id])
-    complaint.interaction.status = params[:status]
+    complaint.complaint_status = params[:status]
     if complaint.interaction.save
       head :ok
     else
@@ -327,6 +328,6 @@ class ComplaintsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def complaint_params
-      params.require(:complaint).permit(:kind, :contact_method, :interaction_id)
+      params.require(:complaint).permit(:kind, :contact_method, :interaction_id, :complaint_status)
     end
 end

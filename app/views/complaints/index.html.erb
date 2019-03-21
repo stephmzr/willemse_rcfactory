@@ -69,7 +69,7 @@
           <td><%= I18n.t("complaint_mode.#{complaint.mode}") unless complaint.mode.nil? %></td>
           <td><%= "% .2f" % complaint.total_reclam %>€</td>
           <td id="status">
-            <%= I18n.t("status.#{complaint.interaction.status}") %>
+            <%= I18n.t("status.#{complaint.complaint_status}") %>
             <% if complaint.action_status == 1 %>
               <%= image_tag("euro.png", {style: "height: 20px"}) %>
             <% elsif complaint.action_status == 2 %>
@@ -77,8 +77,8 @@
             <% end %>
           </td>
           <td id="status_select" class="uk-hidden">
-            <%= select_tag :status, options_for_select(Interaction.statuses.collect {|status| [I18n.t("status.#{status[0]}"), status[0]]},
-                                                       complaint.interaction.status), {class: 'uk-select', style: 'height: 25px'} %>
+            <%= select_tag :complaint_status, options_for_select(Complaint.complaint_statuses.collect {|status| [I18n.t("complaint_status.#{status[0]}"), status[0]]},
+                                                       complaint.complaint_status), {class: 'uk-select', style: 'height: 25px'} %>
           </td>
           <td class="uk-flex uk-flex-center">
             <ul class="uk-iconnav">
@@ -123,67 +123,10 @@
           </div>
         </div>
       <% end %>
-      <% @interactions.each do |interaction| %>
-        <tr>
-          <td id="id" class="uk-hidden"><%= interaction.id %></td>
-          <td id="type" class="uk-hidden">interaction</td>
-          <td class="uk-flex uk-flex-center">
-            <ul class="uk-iconnav">
-              <li>
-                <%= link_to interaction_path(interaction), target: :_blank do %>
-                  <span uk-icon="search"></span>
-                <% end %>
-              </li>
-            </ul>
-          </td>
-          <td>
-            <% if interaction.date.present? %>
-              <%= interaction.date.strftime('%d/%m/%Y') %>
-            <% end %>
-          </td>
-          <td><%= interaction.contact %></td>
-          <td>
-            <%= link_to detail_commandes_path(do_piece: interaction.do_piece), target: :_blank do %>
-            <%= interaction.do_piece %>
-            <% end %>         
-          </td>
-          <td>
-            <%= link_to fiche_clients_path(client_num: interaction.ct_num), target: :_blank do %>
-              <%= interaction.ct_num %>
-            <% end %>
-          </td>
-          <td><%= interaction.client_name %></td>
-          <td><%= I18n.t("contact_method.#{interaction.kind}") %></td>
-          <td id="actiontype"><%if interaction.suggested_cagnotte_amount!=0%>
-            <%= "Cagnotte"%>
-          <% end %>
-          </td>
-          <td></td>
-          <td><%= "% .2f" % interaction.suggested_cagnotte_amount %>€</td>
-          <td id="status">
-            <%= I18n.t("status.#{interaction.status}") %>
-            <% if interaction.action_status == 1 %>
-              <%= image_tag("euro.png", {style: "height: 20px"}) %>
-            <% elsif interaction.action_status == 2 %>
-              <%= image_tag("warning.png", {style: "height: 20px", 'uk-tooltip': interaction.error_message}) %>
-            <% end %>
-          </td>
-          <td id="status_select" class="uk-hidden">
-            <%= select_tag :status, options_for_select(Interaction.statuses.collect {|status| [I18n.t("status.#{status[0]}"), status[0]]},
-                                                       interaction.status), {class: 'uk-select', style: 'height: 25px'} %>
-          </td>
-          <td class="uk-flex uk-flex-center">
-            <ul class="uk-iconnav">
-              <li>
-                <span uk-icon="pencil" id="edit" class="uk-link uk-icon"></span>
-                <span uk-icon="check" id="confirm" class="uk-hidden uk-link uk-icon"></span>
-                <span uk-icon="close" id="cancel" class="uk-hidden uk-link uk-icon"></span>
-              </li>
-            </ul>
-            <a href="#modal-interaction-<%= interaction.id %>" id="confirm_action" class="uk-button-primary uk-hidden" style="padding: 2px 5px" uk-toggle>Valider</a>
-          </td>
-        </tr>
 
+<%
+=begin
+%>
         <div id="modal-interaction-<%= interaction.id %>" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
@@ -207,6 +150,10 @@
     </table>
   </div>
 </div>
+
+<%
+=end
+%>
 
 <script>
     $(document).ready(function () {
@@ -269,7 +216,7 @@
         });
 
         $('#complaints_table').on('click', '#confirm', function () {
-            const selected_option = $(this).parents('tr').find('select#status option:selected');
+            const selected_option = $(this).parents('tr').find('select#complaint_status option:selected');
             const id = table.cell($(this).parents('tr').children('td#id')).data();
             const status_to_update = $(this).parents('tr').children('td#status');
 

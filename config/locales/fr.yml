@@ -51,3 +51,7 @@ fr:
     cagnotte: 'Cagnotte'
     echange: 'Échange'
     remboursement: 'Remboursement'
+  complaint_status: 
+    open: 'Ouvert'
+    ongoing: 'En cours'
+    closed: 'Fermée'
