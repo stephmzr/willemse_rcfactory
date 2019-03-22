@@ -320,6 +320,32 @@ class ComplaintsController < ApplicationController
     end
   end
 
+  def echange_articles
+    complaint = Complaint.find(params[:id])
+    
+    if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
+      document_lines = []
+      
+      complaint.complaint_articles.where('number_selected > 0').each do |article|
+        :document_lines << {
+            "referenceArticle": article.AR_Ref,
+            "quantite": article.number_selected,
+            "totalTTC": article.action_amount
+        }
+      end
+      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
+      :body => {
+        "cle":"D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+        "typeDocument": complaint.interaction.do_type,
+        "numeroDocument": complaint.interaction.do_piece,
+        "lignesDocument": document_lines,
+        "motif": params[:motif]
+      }.to_json,
+      :headers => { 'Content-Type' => 'application/json'})
+      json_body = JSON.parse(response.body)
+  end
+end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_complaint
