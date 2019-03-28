@@ -149,7 +149,7 @@
                         <% end %>
                       </td>
                       <td><%= article.number_selected %></td>
-                      <td><%= I18n.t("refund_type.#{article.action_type}") %></td>
+                      <td><%= I18n.t("refund_type.#{article.action_type}") unless article.action_type.nil? %></td>
                       <td><%= article.action_amount %></td>
                     </tr>
                   <% end %>

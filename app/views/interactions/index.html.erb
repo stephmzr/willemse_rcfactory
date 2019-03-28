@@ -67,6 +67,8 @@
           <td><%= I18n.t("contact_method.#{interaction.kind}") %></td>
           <td id="actiontype"><%if interaction.suggested_cagnotte_amount!=0%>
             <%# <%= "Cagnotte" + " " +%><%= interaction.suggested_cagnotte_amount.to_s %> 
+            <%# <% else %>
+            <%# <%= I18n.t("refund_type.#{interaction.refund_type}") unless interaction.refund_type.nil? %>
           <% end %>
           </td>
           <td><%= I18n.t("complaint_kind.#{interaction.object}") %></td>
@@ -148,7 +150,6 @@
       $("div.toolbar").html('<select name="status_select" id="status_select" class="uk-select uk-width-medium">' +
             '<option value="willemse" selected>Pour Willemse</option>' +
             '<option value="vivetic">Pour Vivetic</option>' +
-            //'<option value="Fermé">Fermé</option>' +
             '<option value="Tout afficher">Tout afficher</option>' + 
             '</select>');
         $('#status_select', this).on('keyup change', function () {
@@ -170,7 +171,7 @@
             $(this).parents('tr').children('td#status_select').removeClass('uk-hidden');
             $(this).parents('tr').find('#edit').addClass('uk-hidden');
             $(this).parents('tr').find('#confirm').removeClass('uk-hidden');
-            if(table.cell($(this).parents('tr').children('td#actiontype')))//.data()=="Cagnotte")
+            if(table.cell($(this).parents('tr').children('td#actiontype')).data()!="")
             {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
             }
             $(this).parents('tr').find('#cancel').removeClass('uk-hidden');
