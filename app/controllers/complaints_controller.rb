@@ -341,16 +341,19 @@ class ComplaintsController < ApplicationController
         else
           complaint.interaction.action_status = 1
           complaint.interaction.status = 'closed'
+          complaint.complaint_status = 'closed'
           if complaint.interaction.save
-            head :ok
+            if complaint.save
+              head :ok
+            else
+              render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+            end
           else
             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
           end
         end
-      else
-        render json: response, status: :internal_server_error
       end
-  end
+    end
 
   def echange_articles
     complaint = Complaint.find(params[:id])
