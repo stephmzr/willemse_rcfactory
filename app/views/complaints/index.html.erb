@@ -89,20 +89,9 @@
               </li>
             </ul>
             <a href="#modal-complaint-<%= complaint.id %>" id="confirm_action" class="uk-button-primary uk-hidden" style="padding: 2px 5px" uk-toggle>Valider</a>
-            <a href="#modal-echange-<%= complaint.id %>" id="confirm_action2" class="uk-button-primary uk-hidden" style="padding: 2px 5px" uk-toggle>Echange</a>
           </td>
         </tr>
-        <div id="modal-echange-<%= complaint.id %>" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body">
-            <h3 class="uk-modal-title">Echange d'articles</h3>
-            <p>
-            Montant : <span id="modal_montant">
-            </p>
-            <p class="uk-text-right">
-              <button id="cancel_action_button" class="uk-button uk-button-default uk-modal-close" type="button">Annuler</button>
-              <button id="confirm_action_button" class="uk-button uk-button-primary" type="button">Confirmer</button>
-            </p>
-        </div>
+
         <div id="modal-complaint-<%= complaint.id %>" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
@@ -134,18 +123,18 @@
             </p>
           </div>
         </div>
-      <% end %>
 
-        <div id="modal-interaction-<%= complaint.id %>" uk-modal>
+
+        <div id="modal-interaction-<%= complaint.interaction.id %>" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
             <p>
               Réclamation de <%= complaint.interaction.client_name %> <br/>
-              Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{interaction.object}") %></span>
+              Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{complaint.interaction.object}") %></span>
             </p>
 
             <div class="uk-margin">
-              Vous êtes sur le point de cagnotter <span id="modal_amount" class="uk-text-bold"><%= interaction.suggested_cagnotte_amount || 0 %></span>€, êtes-vous sûr ?
+              Vous êtes sur le point de cagnotter <span id="modal_amount" class="uk-text-bold"><%= complaint.interaction.suggested_cagnotte_amount || 0 %></span>€, êtes-vous sûr ?
             </div>
 
             <p class="uk-text-right">
@@ -153,6 +142,7 @@
               <button id="confirm_action_button" class="uk-button uk-button-primary" type="button">Confirmer</button>
             </p>
           </div>
+        <% end %>
         </div>
       </tbody>
     </table>
@@ -213,8 +203,8 @@
             $(this).parents('tr').children('td#status_select').removeClass('uk-hidden');
             $(this).parents('tr').find('#edit').addClass('uk-hidden');
             $(this).parents('tr').find('#confirm').removeClass('uk-hidden');
-            if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="")
-            {$(this).parents('tr').find('#confirm_action2').removeClass('uk-hidden');
+            if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="Cagnotte")
+            {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
             }
             $(this).parents('tr').find('#cancel').removeClass('uk-hidden');
         });
@@ -274,7 +264,6 @@
             const modal = $(this).parents('div')[1];
             const uikit_modal = UIkit.modal('#' + modal.id);
             const isComplaint = modal.id.startsWith("modal-complaint");
-            const isEchange = modal.id.startsWith("modal-echange");
             let modal_id = 0;
 
             let motif, amount;
@@ -306,8 +295,6 @@
             let url = location.origin;
             if (isComplaint) {
                 url = url + "/complaints/" + modal_id + "/cagnottage";
-            } else if (isEchange) {
-                url = url + "/complaints/" + modal_id + "/echange_articles";
             }
             else {
                 url = url + "/interactions/" + modal_id + "/cagnottage";
