@@ -136,14 +136,11 @@
         </div>
       <% end %>
 
-<%
-=begin
-%>
-        <div id="modal-interaction-<%= interaction.id %>" uk-modal>
+        <div id="modal-interaction-<%= complaint.id %>" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
             <p>
-              Réclamation de <%= interaction.client_name %> <br/>
+              Réclamation de <%= complaint.interaction.client_name %> <br/>
               Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{interaction.object}") %></span>
             </p>
 
@@ -157,15 +154,11 @@
             </p>
           </div>
         </div>
-      <% end %>
       </tbody>
     </table>
   </div>
 </div>
 
-<%
-=end
-%>
 
 <script>
     $(document).ready(function () {

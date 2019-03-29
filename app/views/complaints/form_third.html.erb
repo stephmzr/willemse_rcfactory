@@ -189,8 +189,7 @@
       <div class="uk-margin-remove-top uk-grid" uk-grid>
         <span class="uk-width-1-4">
           <%= form.label :action_type, "Type d'action", class: 'uk-form-label' %>
-          <%= form.select :action_type, ComplaintArticle.action_types.collect {|kind| [I18n.t("refund_type.#{kind[0]}"), kind[0]]},
-                          {selected:  @variables[:complaint].complaint_articles.where('number_selected > 0').first.action_type || 0}, class: 'uk-select' %>
+          <%= form.select :action_type, ComplaintArticle.action_types.collect {|kind| [I18n.t("refund_type.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select'} %> 
         </span>
         <span class="uk-width-1-4">
           <%= form.label :mode, "Mode de paiement", class: 'uk-form-label' %>
