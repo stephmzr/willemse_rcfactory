@@ -333,7 +333,7 @@ class ComplaintsController < ApplicationController
         if (json_body['erreur'])
           complaint.interaction.action_status = 2
           complaint.interaction.error_message = json_body['message']
-          if compplaint.interaction.save
+          if complaint.interaction.save
             render json: json_body['message'], status: :error
           else
             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
