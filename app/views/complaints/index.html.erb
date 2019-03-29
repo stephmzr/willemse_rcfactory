@@ -124,7 +124,6 @@
           </div>
         </div>
 
-
         <div id="modal-interaction-<%= complaint.interaction.id %>" uk-modal>
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
@@ -206,6 +205,12 @@
             if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="Cagnotte")
             {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
             }
+            else if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="Échange")
+            {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
+            }
+            else if(table.cell($(this).parents('tr').children('td#actiontype')).data()=="Remboursement")
+            {$(this).parents('tr').find('#confirm_action').removeClass('uk-hidden');
+            }
             $(this).parents('tr').find('#cancel').removeClass('uk-hidden');
         });
 
@@ -273,9 +278,6 @@
                 amount = $(modal).find('#modal_amount').text();
                 console.log("motif : " + motif);
                 console.log("montant : " + amount);
-            } else if (isEchange) {
-                motif = $(modal).find('#modal_motif').text();
-                console.log("motif : " + motif);
             }
             else {
                 modal_id = modal.id.substr("modal-interaction-".length);

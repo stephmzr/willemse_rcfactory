@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       patch 'form_third_submit'
       post 'update_status'
       post 'cagnottage'
+      post 'echange'
     end
   end
   resources :complaint_answers

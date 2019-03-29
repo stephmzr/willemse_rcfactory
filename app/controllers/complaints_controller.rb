@@ -355,20 +355,19 @@ class ComplaintsController < ApplicationController
       end
     end
 
-  def echange_articles
+  def echange
     complaint = Complaint.find(params[:id])
-    
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []
       
-      complaint.complaint_articles.where('number_selected > 0').each do |article|
-        :document_lines << {
-            "referenceArticle": article.AR_Ref,
-            "quantite": article.number_selected,
-            "totalTTC": article.action_amount
-        }
-      end
-      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
+      # complaint.complaint_articles.where('number_selected > 0').each do |article|
+      #   :document_lines = {
+      #       "referenceArticle": article.AR_Ref,
+      #       "quantite": article.number_selected,
+      #       "totalTTC": article.action_amount
+      #   }.to_json,
+      # end
+      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/echangerArticles',
       :body => {
         "cle":"D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
         "typeDocument": complaint.interaction.do_type,
