@@ -270,7 +270,7 @@
             const modal = $(this).parents('div')[1];
             const uikit_modal = UIkit.modal('#' + modal.id);
             const isComplaint = modal.id.startsWith("modal-complaint");
-            let actiontype = table.cell($(this).parents('tr').children('td#actiontype')).text();
+            const actiontype = $(selected_row).find("td#actiontype").text();
             let modal_id = 0;
 
             let motif, amount;
@@ -296,15 +296,19 @@
             $(selected_row).find('#confirm_action').addClass('uk-hidden');
             $(selected_row).find('#cancel').addClass('uk-hidden');
 
+
             let url = location.origin;
             if (isComplaint) {
-              if (actiontype = "Echange") {
+              if (actiontype == "Échange") {
                 url = url + "/complaints/" + modal_id + "/echange";
               }
-              else if (actiontype = "Cagnotte") {
+              else if (actiontype == "Cagnotte") {
                 url = url + "/complaints/" + modal_id + "/cagnottage";
               }
-              // url = url + "/complaints/" + modal_id + "/echange";
+              //url = url + "/complaints/" + modal_id + "/echange";
+
+
+
               // switch (motif) {
 
               //   case "Echange":
