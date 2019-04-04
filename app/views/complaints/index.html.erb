@@ -96,6 +96,7 @@
           <div class="uk-modal-dialog uk-modal-body">
             <h3 class="uk-modal-title">Mise à jour dans SAGE</h3>
             <p>
+
               Réclamation de <%= complaint.client_name %> <br/>
               Type : <%= I18n.t("refund_type.#{complaint.refund_type}") %> <br/>
               Motif : <span id="modal_motif"><%= I18n.t("complaint_kind.#{complaint.kind}") %></span>
@@ -269,6 +270,7 @@
             const modal = $(this).parents('div')[1];
             const uikit_modal = UIkit.modal('#' + modal.id);
             const isComplaint = modal.id.startsWith("modal-complaint");
+            let actiontype = table.cell($(this).parents('tr').children('td#actiontype')).text();
             let modal_id = 0;
 
             let motif, amount;
@@ -296,7 +298,28 @@
 
             let url = location.origin;
             if (isComplaint) {
+              if (actiontype = "Echange") {
+                url = url + "/complaints/" + modal_id + "/echange";
+              }
+              else if (actiontype = "Cagnotte") {
                 url = url + "/complaints/" + modal_id + "/cagnottage";
+              }
+              // url = url + "/complaints/" + modal_id + "/echange";
+              // switch (motif) {
+
+              //   case "Echange":
+              //   url = url + "/complaints/" + modal_id + "/echange";
+              //   break;
+
+              //   case "Cagnotte":
+              //   url = url + "/complaints/" + modal_id + "/cagnottage";
+              //   break;
+
+              //   case "Remboursement":
+              //   url = url + "/complaints/" + modal_id + "/remboursement";
+              //   break;
+              // }
+
             }
             else {
                 url = url + "/interactions/" + modal_id + "/cagnottage";
