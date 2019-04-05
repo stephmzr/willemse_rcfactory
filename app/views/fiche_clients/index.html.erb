@@ -175,7 +175,7 @@
                     <td class="uk-flex uk-flex-center">
                       <ul class="uk-iconnav">
                         <li>
-                          <%= link_to interaction_path(id: interaction.id, search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']) do %>
+                          <%= link_to interaction_path(id: interaction.id, search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), target: :_blank do %>
                             <span uk-icon="search"></span>
                           <% end %>
                         </li>
