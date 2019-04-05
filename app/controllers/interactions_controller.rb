@@ -46,11 +46,11 @@ end
       add_attachments
       if params[:commit] == 'Enregistrer'
         redirect_to interaction_path(id: @interaction.id, client_num: params[:interaction][:ct_num],
-                                     search: params[:interaction][:search], do_piece: params[:interaction][:do_piece],
-                                     do_type: params[:interaction][:do_type] )
+                                    search: params[:interaction][:search], do_piece: params[:interaction][:do_piece],
+                                    do_type: params[:interaction][:do_type] )
       else
         redirect_to new_complaint_path(client_num: params[:interaction][:ct_num], search: params[:interaction][:search],
-                                       kind: params[:interaction][:object], interaction_id: @interaction.id)
+                                      kind: params[:interaction][:object], interaction_id: @interaction.id)
       end
     else
       render :new
@@ -62,8 +62,8 @@ end
     if @interaction.update(interaction_params)
       add_attachments
       redirect_to interaction_path(id: @interaction.id, client_num: params[:interaction][:ct_num],
-                                   search: params[:interaction][:search], do_piece: params[:interaction][:do_piece],
-                                   do_type: params[:interaction][:do_type] )
+                                  search: params[:interaction][:search], do_piece: params[:interaction][:do_piece],
+                                  do_type: params[:interaction][:do_type] )
     else
       render :edit
     end

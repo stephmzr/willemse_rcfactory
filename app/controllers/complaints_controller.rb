@@ -405,6 +405,9 @@ class ComplaintsController < ApplicationController
   end
 end
 
+  def remboursement
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_complaint
