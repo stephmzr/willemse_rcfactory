@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'update_status'
       post 'cagnottage'
       post 'echange'
+      post 'remboursement'
     end
   end
   resources :complaint_answers
