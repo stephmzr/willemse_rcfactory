@@ -408,9 +408,9 @@ end
 def remboursement
   complaint = Complaint.find(params[:id])
   # if params[:do_piece].present?
-  if complaint.interaction.do_piece.present?
-    result = DetailCommande.execute_procedure "p_detail_commande", complaint.interaction.do_piece, complaint.interaction.do_type
-  end
+  # if complaint.interaction.do_piece.present?
+  #   result = DetailCommande.execute_procedure "p_detail_commande", complaint.interaction.do_piece, complaint.interaction.do_type
+  # end
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []
       complaint.complaint_articles.where('number_selected > 0').each do |article|
@@ -421,7 +421,7 @@ def remboursement
         }
     end
       body = {
-          "cle":"D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+          "cle": 'D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6',
           "typeDocument": complaint.interaction.do_type,
           "numeroDocument": complaint.interaction.do_piece,
           "lignesDocument": document_lines,
@@ -430,49 +430,52 @@ def remboursement
           "motif": params[:motif]
       }
       begin
-        response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/rembourserVente', body).to_json#, body.to_json, content_type: :json)
+        response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/rembourserVente', :body => body.to_json, :headers => { 'Accept' => 'application/json' })
         puts response.code
-        #json_body = JSON.parse(response.body)
-    #     if response.code == 200
-    #       render json: json_body['erreur']
-    #       if (json_body['erreur'])
-    #         complaint.action_status = 2
-    #         complaint.error_message = json_body['message']
-    #         if complaint.save
-    #           render json: json_body['message'], status: :error
-    #         else
-    #           render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-    #         end
-    #       else
-    #         complaint.action_status = 1
-    #         complaint.interaction.status = 'closed'
-    #         if complaint.interaction.save
-    #           if complaint.save
-    #             head :ok
-    #           else
-    #             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-    #           end
-    #         else
-    #           render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-    #         end
-    #       end
-    #     else
-    #       render json: response, status: :internal_server_error
-    #     end
-    # else
-    #   complaint.action_status = 1
-    #   complaint.interaction.status = 'closed'
-    #   if complaint.interaction.save
-    #     if complaint.save
-    #       head :ok
-    #     else
-    #       render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-    #     end
-    #   else
-    #     render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+        puts cle
+        json_body = JSON.parse(response.body)
+        if response.code == 200
+          render json: json_body['erreur']
+          if (json_body['erreur'])
+            complaint.action_status = 2
+            complaint.error_message = json_body['message']
+            if complaint.save
+              render json: json_body['message'], status: :error
+            else
+              render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+            end
+          else
+            complaint.action_status = 1
+            complaint.interaction.status = 'closed'
+            complaint.complaint_status = 'closed'
+            if complaint.interaction.save
+              if complaint.save
+                head :ok
+              else
+                render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+              end
+            else
+              render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+            end
+          end
+        else
+          render json: response, status: :internal_server_error
+        end
+    else
+      complaint.action_status = 1
+      complaint.interaction.status = 'closed'
+      if complaint.interaction.save
+        if complaint.save
+          head :ok
+        else
+          render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+        end
+      else
+        render json: 'Erreur de mise à jour du statut', status: :internal_server_error
       end
     end
   end
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
