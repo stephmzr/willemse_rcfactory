@@ -359,25 +359,25 @@ class ComplaintsController < ApplicationController
     complaint = Complaint.find(params[:id])
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []
-      
       complaint.complaint_articles.where('number_selected > 0').each do |article|
-      
-      
-      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/echangerArticles',
-      :body => {
-        "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
-        "typeDocument": complaint.interaction.do_type,
-        "numeroDocument": complaint.interaction.do_piece,
-      #   "lignesDocument": {
-      #     "referenceArticle": article.AR_Ref,
-      #     "quantite": article.number_selected,
-      #     "totalTTC": article.action_amount
-      # },
-        "motif": params[:motif]
-      }.to_json,
-      :headers => { 'Content-Type' => 'application/json'})
-      json_body = JSON.parse(response.body)
+        document_lines << {
+            "referenceArticle": article.AR_Ref,
+            "quantite": article.number_selected,
+            "totalTTC": article.action_amount
+        }
     end
+    body = {
+      "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+      "typeDocument": complaint.interaction.do_type,
+      "numeroDocument": complaint.interaction.do_piece,
+      "lignesDocument": document_lines,
+      "motif": params[:motif]
+    }
+      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/echangerArticles',
+      :body => body.to_json,
+      :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
+      json_body = JSON.parse(response.body)
+    
     if (response.code == 200)
       if (json_body['erreur'])
         complaint.interaction.action_status = 2
@@ -401,9 +401,10 @@ class ComplaintsController < ApplicationController
           render json: 'Erreur de mise à jour du statut', status: :internal_server_error
         end
       end
-    end  
-  end
+    end
+  end  
 end
+
 
 def remboursement
   complaint = Complaint.find(params[:id])
@@ -426,13 +427,13 @@ def remboursement
           "numeroDocument": complaint.interaction.do_piece,
           "lignesDocument": document_lines,
           "montant": params[:amount].to_f,
-          "souche": complaint.interaction.do_type,#params[:DO_Satut],
+          "souche": complaint.interaction.do_type,
           "motif": params[:motif]
       }
-      begin
-        response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/rembourserVente', :body => body.to_json, :headers => { 'Accept' => 'application/json' })
-        puts response.code
-        puts cle
+
+        response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/rembourserVente',
+        :body => body.to_json,
+        :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
         json_body = JSON.parse(response.body)
         if response.code == 200
           render json: json_body['erreur']
@@ -464,6 +465,7 @@ def remboursement
     else
       complaint.action_status = 1
       complaint.interaction.status = 'closed'
+      #complaint.complaint_status = 'closed'
       if complaint.interaction.save
         if complaint.save
           head :ok
@@ -475,7 +477,7 @@ def remboursement
       end
     end
   end
-end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
