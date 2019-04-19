@@ -253,42 +253,97 @@ class ComplaintsController < ApplicationController
     end
   end
 
+
   def cagnottage
+  # complaint = Complaint.find(params[:id])
+  #   response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
+  #     :body => {
+  #       "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+  #       "codeTiers": complaint.interaction.ct_num,
+  #       "montant": params[:amount].to_f,
+  #       "motif": params[:motif]
+  #     }.to_json,
+  #     :headers => { 'Content-Type' => 'application/json'})
+  #     json_body = JSON.parse(response.body)
+  #     if (response.code == 200)
+  #       if (json_body['erreur'])
+  #         complaint.interaction.action_status = 2
+  #         complaint.interaction.error_message = json_body['message']
+  #         if complaint.interaction.save
+  #           render json: json_body['message'], status: :error
+  #         else
+  #           render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+  #         end
+  #       else
+  #         complaint.interaction.action_status = 1
+  #         complaint.interaction.status = 'closed'
+  #         complaint.complaint_status = 'closed'
+  #         if complaint.interaction.save
+  #           if complaint.save
+  #             head :ok
+  #           else
+  #             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+  #           end
+  #         else
+  #           render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+  #         end
+  #       end
+  #     end
+  #   end
   complaint = Complaint.find(params[:id])
-    response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
-      :body => {
-        "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
-        "codeTiers": complaint.interaction.ct_num,
-        "montant": params[:amount].to_f,
-        "motif": params[:motif]
-      }.to_json,
-      :headers => { 'Content-Type' => 'application/json'})
-      json_body = JSON.parse(response.body)
-      if (response.code == 200)
-        if (json_body['erreur'])
-          complaint.interaction.action_status = 2
-          complaint.interaction.error_message = json_body['message']
-          if complaint.interaction.save
-            render json: json_body['message'], status: :error
-          else
-            render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-          end
+  if complaint.complaint_articles.present? && complaint.complaint_articles.first.action_type == 'cagnotte' &&
+    complaint.complaint_articles.where('number_selected > 0').length > 0
+    document_lines = []
+    complaint.complaint_articles.where('number_selected > 0').each do |article|
+      document_lines << {
+          "referenceArticle": article.AR_Ref,
+          "quantite": article.number_selected,
+          "totalTTC": article.action_amount
+      }
+  end
+  body = {
+    "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+    "typeDocument": complaint.interaction.do_type,
+    "numeroDocument": complaint.interaction.do_piece,
+    "lignesDocument": document_lines,
+    "motif": params[:motif]
+  }
+    response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/alimenterCagnotteVente',
+    :body => body.to_json,
+    :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
+    json_body = JSON.parse(response.body)
+  
+  if (response.code == 200)
+    if (json_body['erreur'])
+      complaint.interaction.action_status = 2
+      complaint.interaction.error_message = json_body['message']
+      if complaint.interaction.save
+        render json: json_body['message'], status: :error
+      else
+        render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+      end
+    else
+      complaint.interaction.action_status = 1
+      complaint.interaction.status = 'closed'
+      complaint.complaint_status = 'closed'
+      if complaint.interaction.save
+        if complaint.save
+          head :ok
         else
-          complaint.interaction.action_status = 1
-          complaint.interaction.status = 'closed'
-          complaint.complaint_status = 'closed'
-          if complaint.interaction.save
-            if complaint.save
-              head :ok
-            else
-              render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-            end
-          else
-            render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-          end
+          render json: 'Erreur de mise à jour du statut', status: :internal_server_error
         end
+      else
+        render json: 'Erreur de mise à jour du statut', status: :internal_server_error
       end
     end
+  end
+end  
+end
+
+
+
+
+
 
   def echange
     complaint = Complaint.find(params[:id])
