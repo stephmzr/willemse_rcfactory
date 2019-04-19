@@ -129,7 +129,7 @@ end
     interaction = Interaction.find(params[:id])
     response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/AlimenterCagnotteClient',
       :body => {
-        "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+        "cle": 'D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6',
         "codeTiers": interaction.ct_num,
         "montant": params[:amount].to_f,
         "motif": params[:motif]

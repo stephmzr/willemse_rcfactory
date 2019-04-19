@@ -370,18 +370,17 @@ def remboursement
         :body => body.to_json,
         :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
         json_body = JSON.parse(response.body)
-        if response.code == 200
-          render json: json_body['erreur']
+        if (response.code == 200)
           if (json_body['erreur'])
-            complaint.action_status = 2
-            complaint.error_message = json_body['message']
-            if complaint.save
+            complaint.interaction.action_status = 2
+            complaint.interaction.error_message = json_body['message']
+            if complaint.interaction.save
               render json: json_body['message'], status: :error
             else
               render json: 'Erreur de mise à jour du statut', status: :internal_server_error
             end
           else
-            complaint.action_status = 1
+            complaint.interaction.action_status = 1
             complaint.interaction.status = 'closed'
             complaint.complaint_status = 'closed'
             if complaint.interaction.save
@@ -394,24 +393,9 @@ def remboursement
               render json: 'Erreur de mise à jour du statut', status: :internal_server_error
             end
           end
-        else
-          render json: response, status: :internal_server_error
         end
-    else
-      complaint.action_status = 1
-      complaint.interaction.status = 'closed'
-      #complaint.complaint_status = 'closed'
-      if complaint.interaction.save
-        if complaint.save
-          head :ok
-        else
-          render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-        end
-      else
-        render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-      end
+      end  
     end
-  end
 
 
   private
