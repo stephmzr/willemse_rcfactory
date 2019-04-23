@@ -354,7 +354,7 @@ class ComplaintsController < ApplicationController
     else
       complaint.interaction.action_status = 1
       complaint.interaction.status = 'closed'
-      complaint.complaint_status = 'closed'
+      # complaint.complaint_status = 'closed'
       if complaint.interaction.save
         if complaint.save
           head :ok
