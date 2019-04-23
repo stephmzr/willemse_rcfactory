@@ -19,8 +19,6 @@ test:
 production:
   adapter: postgresql
   database: willemse_production
-  username: willemse
-  password: '%Willemse2018'
   encoding: unicode
   pool: 5
 sql_server:

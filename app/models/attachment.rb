@@ -3,6 +3,7 @@ class Attachment < ApplicationRecord
   validates_attachment :file, presence: true
   do_not_validate_attachment_file_type :file
 
+
   enum kind: {
       procedure: 1,
       transport: 2,
