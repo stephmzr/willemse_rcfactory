@@ -402,10 +402,12 @@ def remboursement
   # if complaint.interaction.do_piece.present?
   #   result = DetailCommande.execute_procedure "p_detail_commande", complaint.interaction.do_piece, complaint.interaction.do_type
   # end
+  # documents = FicheClient.execute_procedure "p_listdocs", fiche_client.ct_num
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []
       complaint.complaint_articles.where('number_selected > 0').each do |article|
-        document_lines << {
+        document_lines << 
+          {
             "referenceArticle": article.AR_Ref,
             "quantite": article.number_selected,
             "totalTTC": article.action_amount
@@ -415,7 +417,7 @@ def remboursement
           "cle": 'D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6',
           "typeDocument": complaint.interaction.do_type,
           "numeroDocument": complaint.interaction.do_piece,
-          "lignesDocument": document_lines,
+          "lignesDocument": document_lines.to_json,
           "montant": params[:amount].to_f,
           "souche": complaint.interaction.do_type,
           "motif": params[:motif]

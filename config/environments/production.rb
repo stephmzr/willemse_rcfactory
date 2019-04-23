@@ -90,7 +90,6 @@ config.webpacker.check_yarn_integrity = false
     :s3_region => ENV['AWS_REGION']
   }
 
-  Paperclip.options[:command_path] = "/usr/bin/"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
