@@ -159,15 +159,7 @@
           <% end %>
           </td>
           <td></td>
-          <td>
-<%
-=begin
-%>
-          <%= "% .2f" % interaction.suggested_cagnotte_amount %>€
-<%
-=end
-%>
-          </td>
+          <td><%= "% .2f" % interaction.suggested_cagnotte_amount.to_s %></td>
           <td id="status">
             <%= I18n.t("status.#{interaction.status}") %>
             <% if interaction.action_status == 1 %>
