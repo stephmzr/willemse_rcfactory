@@ -21,7 +21,7 @@ class ComplaintsController < ApplicationController
       result = FicheClient.execute_procedure "p_ficheclient", complaint.interaction.ct_num
       fiche_client = result[0]
       complaint.client_name = fiche_client['CT_Nom'].to_s + " " + fiche_client['CT_Prenom'].to_s
-    end
+    # end
     # @interactions = Interaction.where(do_piece: "").where("status<?",2)
     # @interactions.each do |interaction|
     #   result = FicheClient.execute_procedure "p_ficheclient", interaction.ct_num
@@ -405,6 +405,15 @@ def remboursement
   # documents = FicheClient.execute_procedure "p_listdocs", fiche_client.ct_num
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []
+      souche = SqlServerDb.connection.select_all("SELECT S_Intitule FROM P_SOUCHEVENTE WHERE S_Intitule !=''")
+      listesouche = []
+      listesouche << souche.each do |row|
+        puts row['S_Intitule']
+      end
+
+      
+      
+      end
       complaint.complaint_articles.where('number_selected > 0').each do |article|
         document_lines << 
           {
@@ -419,7 +428,14 @@ def remboursement
           "numeroDocument": complaint.interaction.do_piece,
           "lignesDocument": document_lines.to_json,
           "montant": params[:amount].to_f,
-          "souche": complaint.interaction.do_type,
+          # "souche": complaint.interaction.do_type = 2 ? "Cagnot." : "Non",
+          "souche": 
+          case complaint.interaction.do_type
+          when "1"
+          "Ok"
+          when "2"
+          "Cagnot."
+          end,
           "motif": params[:motif]
       }
 
