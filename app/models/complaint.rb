@@ -58,6 +58,30 @@ enum mode: {
     cagnotte: 6
 }
 
+enum souche: {
+    AMAZON: 0,
+    ApExpédRbtCB: 1,
+    ApExpédRbtCHQ: 2,
+    ApExpédRbtPP: 3,
+    AvExpéRbtCB: 4,
+    AvExpéRbtCHQ: 5,
+    AvExpéRbtPP: 6, 
+    BPFLO: 7,
+    BPWIL: 8,
+    Cagnot: 9,
+    DEINDEAL: 10,
+    FLORIMON: 11,
+    GROUPON: 12,
+    NPièce: 13,
+    RC4: 14,
+    SRPFLO: 15,
+    SRPWIL: 16,
+    VENTESEXCLUSIVES: 17,
+    VPFLO: 18,
+    VPWIL: 19
+    
+}
+
 enum complaint_status: {
     open: 0,
     ongoing: 1,
