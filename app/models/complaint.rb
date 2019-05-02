@@ -79,7 +79,6 @@ enum souche: {
     VENTESEXCLUSIVES: 17,
     VPFLO: 18,
     VPWIL: 19
-    
 }
 
 enum complaint_status: {

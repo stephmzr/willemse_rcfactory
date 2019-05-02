@@ -222,7 +222,7 @@ class ComplaintsController < ApplicationController
         article.save
       end
       @complaint.note = params[:complaint][:note]
-      @complaint.mode = params[:complaint][:mode]
+      @complaint.mode = params[:complaint][:souche] #[:mode]
       @complaint.save
 
       interaction = Interaction.find(@complaint.interaction.id)
