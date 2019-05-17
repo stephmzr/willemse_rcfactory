@@ -192,8 +192,8 @@
           <%= form.select :action_type, ComplaintArticle.action_types.collect {|kind| [I18n.t("refund_type.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select'} %> 
         </span>
         <span class="uk-width-1-4">
-          <%= form.label :souche, "Mode de paiement", class: 'uk-form-label' %>
-          <%= form.select :souche, Complaint.souches.collect {|kind| [I18n.t("souche.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+          <%= form.label :mode, "Mode de paiement", class: 'uk-form-label' %>
+          <%= form.select :mode, Complaint.modes.collect {|kind| [I18n.t("complaint_mode.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
         </span>
       </div>
       <div class="no-padding-left uk-margin-small-top">
