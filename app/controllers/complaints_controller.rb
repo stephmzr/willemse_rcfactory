@@ -346,11 +346,6 @@ class ComplaintsController < ApplicationController
 end  
 end
 
-
-
-
-
-
   def echange
     complaint = Complaint.find(params[:id])
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
@@ -410,14 +405,7 @@ def remboursement
   # end
   # documents = FicheClient.execute_procedure "p_listdocs", fiche_client.ct_num
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
-      document_lines = []
-      souche = SqlServerDb.connection.select_all("SELECT S_Intitule FROM P_SOUCHEVENTE WHERE S_Intitule !=''")
-      listesouche = []
-      listesouche << souche.each do |row|
-        puts row['S_Intitule']
-      end
-
-      
+      document_lines = []     
       
       end
       complaint.complaint_articles.where('number_selected > 0').each do |article|
