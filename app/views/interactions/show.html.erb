@@ -70,6 +70,20 @@
           <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Résumé de l'intéraction</td>
           <td><%= simple_format(@interaction.summary) %></td>
         </tr>
+
+        <% if @interaction.summary.present? %>
+        <tr>
+        <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Réponse de : <% @comment.contact %></td>
+        <td>
+        <%= form_for [ @comment ] do |f| %>
+
+            <%= f.text_area :body %>
+            <%= f.submit 'Envoyer', class: "btn btn-primary" %>
+        <% end %>
+        </td>
+
+        </tr>
+        <% end %> 
         </tbody>
       </table>
 

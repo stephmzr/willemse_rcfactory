@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190225095903) do
+ActiveRecord::Schema.define(version: 20190522091754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20190225095903) do
     t.string "contenu"
     t.integer "articles_id"
     t.index ["articles_id"], name: "index_commentaires_on_articles_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "body"
+    t.string "contact"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "interaction_id"
+    t.index ["interaction_id"], name: "index_comments_on_interaction_id"
   end
 
   create_table "complaint_answers", force: :cascade do |t|
