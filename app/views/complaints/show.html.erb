@@ -1,0 +1,176 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <%= link_to 'Retour à l\'interaction', interaction_path(@variables[:complaint].interaction, search: @params[:search]), class: 'uk-button uk-button-default uk-margin-right' %>
+          <%= I18n.t("complaint_kind.#{@variables[:complaint].kind}") %>
+          <% if @variables[:complaint].interaction.date.present? %>
+            - <%= @variables[:complaint].interaction.date.strftime('%d/%m/%Y') %>
+          <% end %>
+        </h1>
+      </div>
+      <div class="uk-width-auto@m">
+        <%= link_to 'Modifier', edit_complaint_path(id: @variables[:complaint].id, search: @params[:search]), class: 'uk-button uk-button-primary' %>
+        <%= link_to 'Supprimer', complaint_path(@variables[:complaint], search: @params[:search]), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'uk-button uk-button-danger' %>
+      </div>
+    </div>
+
+    <ul class="uk-list-large" uk-accordion="multiple: true">
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Informations<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Type de réclamation</td>
+                <td><%= I18n.t("complaint_kind.#{@variables[:complaint].kind}") %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Méthode de contact</td>
+                <td><%= I18n.t("contact_method.#{@variables[:complaint].contact_method}") %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Note</td>
+                <td><%= simple_format(@variables[:complaint].note) %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Mode de paiement</td>
+                <td><%= I18n.t("complaint_mode.#{@variables[:complaint].mode}") unless @variables[:complaint].mode.nil? %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+
+      <% if @variables[:complaint].complaint_answers.present? %>
+        <li class="uk-open">
+          <%= link_to '#', class: 'uk-accordion-title' do %>Réponses<% end %>
+          <div class="uk-accordion-content">
+            <div class="uk-grid uk-margin-auto" uk-grid>
+              <table class="uk-table uk-table-striped uk-table-divider uk-table-xsmall uk-table-responsive">
+                <thead>
+                <th class="uk-text-center uk-text-success text-bolder uk-width-1-3">Élément favorable</th>
+                <th class="uk-text-center uk-text-warning text-bolder uk-width-1-3">Partagé</th>
+                <th class="uk-text-center uk-text-danger text-bolder uk-width-1-3">Élément défavorable</th>
+                </thead>
+                <tbody>
+                <% i = 0; while i < @variables[:answers][:favorable].length || i < @variables[:answers][:partagee].length || i < @variables[:answers][:defavorable].length %>
+                  <tr>
+                    <td class="uk-width-1-3">
+                      <% if @variables[:answers][:favorable][i].present? %>
+                        <% if @variables[:answers][:favorable][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:favorable][i].summary_text == 'Afficher la valeur de la commande' %>
+                          Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                        <% elsif @variables[:answers][:favorable][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:favorable][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                          <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                        <% else %>
+                          <%= @variables[:answers][:favorable][i].try(:summary_text) || @variables[:answers][:favorable][i].try(:text) %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <td class="uk-width-1-3">
+                      <% if @variables[:answers][:partagee][i].present? %>
+                        <% if @variables[:answers][:partagee][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:partagee][i].summary_text == 'Afficher la valeur de la commande' %>
+                          Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                        <% elsif @variables[:answers][:partagee][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:partagee][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                          <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                        <% else %>
+                          <%= @variables[:answers][:partagee][i].try(:summary_text) || @variables[:answers][:partagee][i].try(:text) %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <td class="uk-width-1-3">
+                      <% if @variables[:answers][:defavorable][i].present? %>
+                        <% if @variables[:answers][:defavorable][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:defavorable][i].summary_text == 'Afficher la valeur de la commande' %>
+                          Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                        <% elsif @variables[:answers][:defavorable][i].respond_to?(:summary_text) &&
+                            @variables[:answers][:defavorable][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                          <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                        <% else %>
+                          <%= @variables[:answers][:defavorable][i].try(:summary_text) || @variables[:answers][:defavorable][i].try(:text) %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <% i = i + 1 %>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </li>
+      <% end %>
+
+      <% if @variables[:complaint].complaint_articles.where('number_selected > 0').present? %>
+        <li class="uk-open">
+          <%= link_to '#', class: 'uk-accordion-title' do %>Contenu de la commande<% end %>
+          <div class="uk-accordion-content">
+            <div class="uk-grid uk-margin-auto" uk-grid>
+              <div class="uk-width no-padding-left">
+                <table id="order_detail_table" class="uk-table uk-table-middle uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+                  <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Libellé</th>
+                    <th>Qté</th>
+                    <th>PU TTC</th>
+                    <th>Remise</th>
+                    <th>Total TTC</th>
+                    <th>Sélectionné</th>
+                    <th>Type</th>
+                    <th>Montant</th>
+                  </tr>
+                  </thead>
+
+                  <tbody>
+                  <% @variables[:complaint].complaint_articles.where('number_selected > 0').each do |article| %>
+                    <tr>
+                      <td><%= article.AR_Ref %></td>
+                      <td><%= article.DL_Design %></td>
+                      <td><%= article.DL_QTE %></td>
+                      <td>
+                        <% if article.DL_PUTTC.present? %>
+                          <%= "%.2f" % article.DL_PUTTC %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if article.Remise.present? %>
+                          <%= "%.2f" % article.Remise %></td>
+                        <% end %>
+                      <td>
+                        <% if article.DL_MontantTTC.present? %>
+                          <%= "%.2f" % article.DL_MontantTTC %>
+                        <% end %>
+                      </td>
+                      <td><%= article.number_selected %></td>
+                      <td><%= I18n.t("refund_type.#{article.action_type}") unless article.action_type.nil? %></td>
+                      <td><%= article.action_amount %></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#order_detail_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            responsive: true
+        });
+    });
+</script>

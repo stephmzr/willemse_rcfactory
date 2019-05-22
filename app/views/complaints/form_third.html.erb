@@ -1,0 +1,235 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <%= link_to 'Retour', form_second_complaint_path(search: @params[:search]), class: 'uk-button uk-button-default' %>
+          Nouvelle Réclamation
+        </h1>
+      </div>
+      <div class="uk-width-auto@m">
+        <%= link_to 'Supprimer la réclamation', complaint_path(@variables[:complaint], search: @params[:search]), method: :delete, data: {confirm: 'Êtes-vous sûr ?'}, class: 'uk-button uk-button-danger' %>
+      </div>
+    </div>
+
+    <ul class="uk-list-large uk-margin-xsmall-top" uk-grid uk-accordion="multiple: true">
+      <li class="uk-open uk-width">
+        <%= link_to '#', class: 'uk-accordion-title' do %><span class="uk-text-bold"><u>Résumé</u></span><% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-grid uk-margin-auto" uk-grid>
+            <table class="uk-table uk-table-striped uk-table-divider uk-table-xsmall uk-table-responsive">
+              <thead>
+                <th class="uk-text-center uk-text-success text-bolder uk-width-1-3">Élément favorable</th>
+                <th class="uk-text-center uk-text-warning text-bolder uk-width-1-3">Partagé</th>
+                <th class="uk-text-center uk-text-danger text-bolder uk-width-1-3">Élément défavorable</th>
+              </thead>
+              <tbody>
+              <% i = 0; while i < @variables[:answers][:favorable].length || i < @variables[:answers][:partagee].length || i < @variables[:answers][:defavorable].length %>
+                <tr>
+                  <td class="uk-width-1-3">
+                    <% if @variables[:answers][:favorable][i].present? %>
+                      <% if @variables[:answers][:favorable][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:favorable][i].summary_text == 'Afficher la valeur de la commande' %>
+                        Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                      <% elsif @variables[:answers][:favorable][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:favorable][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                        <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                      <% else %>
+                        <%= @variables[:answers][:favorable][i].try(:summary_text) ||  @variables[:answers][:favorable][i].try(:text) %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td class="uk-width-1-3">
+                    <% if @variables[:answers][:partagee][i].present? %>
+                      <% if @variables[:answers][:partagee][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:partagee][i].summary_text == 'Afficher la valeur de la commande' %>
+                        Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                      <% elsif @variables[:answers][:partagee][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:partagee][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                        <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                      <% else %>
+                        <%= @variables[:answers][:partagee][i].try(:summary_text) ||  @variables[:answers][:partagee][i].try(:text) %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td class="uk-width-1-3">
+                    <% if @variables[:answers][:defavorable][i].present? %>
+                      <% if @variables[:answers][:defavorable][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:defavorable][i].summary_text == 'Afficher la valeur de la commande' %>
+                        Valeur de la réclamation : <%= "%.2f" % @variables[:total_commande] %>€
+                      <% elsif @variables[:answers][:defavorable][i].respond_to?(:summary_text) &&
+                          @variables[:answers][:defavorable][i].summary_text == 'Afficher le % de la reclamation sur la valeur totale de la commande' %>
+                        <%= "%.2f" % @variables[:pourcentage_reclam] %>% de la valeur totale de la commande
+                      <% else %>
+                        <%= @variables[:answers][:defavorable][i].try(:summary_text) ||  @variables[:answers][:defavorable][i].try(:text) %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% i = i + 1 %>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+
+      <li class="uk-open uk-width">
+        <%= link_to '#', class: 'uk-accordion-title' do %><span class="uk-text-bold"><u>Aide à la décision</u></span><% end %>
+        <div class="uk-accordion-content">
+          <table class="uk-table uk-table-xsmall uk-table-responsive uk-table-divider uk-margin-remove-bottom">
+            <thead>
+            <th class="uk-text-center uk-width-1-7"></th>
+            <th class="uk-text-center uk-text-success uk-width-2-7 text-bolder">Favorable</th>
+            <th class="uk-text-center uk-text-warning uk-width-2-7 text-bolder">Partagé</th>
+            <th class="uk-text-center uk-text-danger uk-width-2-7 text-bolder">Défavorable</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="uk-text-bold">Cagnotte</td>
+                <td>De 50 à 100% des articles + frais de port</td>
+                <td>Jusqu'à 50% des articles
+                  <br/> >> avec fr port ?
+                  <br/> >> sans fr port ?</td>
+                <td>Rien ou geste commercial (sans frais de port)</td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold">Echange</td>
+                <td>OK mais prioriser la cagnotte (au client de cder…)</td>
+                <td>NON</td>
+                <td>NON</td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold">Remboursement</td>
+                <td>OK mais prioriser la cagnotte (au client de cder…) et à faire valider WF (?)</td>
+                <td>NON</td>
+                <td>NON</td>
+              </tr>
+            </tbody>
+          </table>
+          <span class="uk-margin-remove-top uk-text-small">
+            <i>NB1 : Dans le cas d'articles non fragiles (ex arbustes...), priorisez d'abord la plantation
+              (avec un arrosage adéquat, la plante devrait repartir sans difficultés...)
+            <br/>
+            NB2 : si vous pensez, exceptionnellement et après écoute du client, qu’il faut aller au-delà
+              du process indiqué ci-dessus, il faut demander la validation de la team Willemse</i>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <%= form_with(model: @variables[:complaint], local: true, url: "/complaints/#{@variables[:complaint].id}/form_third_submit",
+                  data: {controller: 'form', form_errors: @variables[:complaint].errors.messages.keys.join(',')}) do |form| %>
+      <ul class="uk-list-large uk-margin-xsmall-top" uk-grid uk-accordion="multiple: true">
+        <li class="uk-open uk-width">
+          <%= link_to '#', class: 'uk-accordion-title' do %><span class="uk-text-bold"><u>Contenu</u></span><% end %>
+          <div class="uk-accordion-content">
+            <div class="uk-width no-padding-left">
+              <table id="order_detail_table" class="uk-table uk-table-middle uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+                <thead>
+                <tr>
+                  <th>Ref</th>
+                  <th>Libellé</th>
+                  <th>Qté</th>
+                  <th>PU TTC</th>
+                  <th>Remise</th>
+                  <th>Total TTC</th>
+                  <th data-orderable="false">Sélectionné</th>
+                  <th data-orderable="false">Montant</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                  <% @variables[:complaint].complaint_articles.where('number_selected > 0').each do |article| %>
+                    <tr>
+                      <td><%= article.AR_Ref %></td>
+                      <td><%= article.DL_Design %></td>
+                      <td><%= article.DL_QTE %></td>
+                      <td>
+                        <% if article.DL_PUTTC.present? %>
+                          <%= "%.2f" % article.DL_PUTTC %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if article.Remise.present? %>
+                          <%= "%.2f" % article.Remise %></td>
+                        <% end %>
+                        <td>
+                          <% if article.DL_MontantTTC.present? %>
+                            <%= "%.2f" % article.DL_MontantTTC %>
+                          <% end %>
+                        </td>
+                      <td><%= form.number_field "number_selected_#{article.AR_Ref}", max: article.DL_QTE, min: 0, value: article.number_selected || 0, class: 'uk-input', style: 'height: 30px' %></td>
+                      <td><%= form.number_field "action_amount_#{article.AR_Ref}", value: article.action_amount || 0, min: 0,
+                                                step: :any, class: 'uk-input', style: 'height: 30px' %></td>
+                    </tr>
+                  <% end %>
+                  <% frais_de_port = @variables[:complaint].complaint_articles.find_by(AR_Ref: "ZPORT")
+                    if frais_de_port.nil? || frais_de_port.number_selected == 0 %>
+                    <tr>
+                      <td>ZPORT</td>
+                      <td>Frais de port</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><%= "%.2f" % @variables[:detail_commande]['DO_ValFrais'] %></td>
+                      <td><%= form.number_field "number_selected_ZPORT", max: 1, min: 0, value: frais_de_port.try(:number_selected) || 1, class: 'uk-input', style: 'height: 30px' %></td>
+                      <td><%= form.number_field "action_amount_ZPORT", value: 0, min: 0, step: :any, class: 'uk-input', style: 'height: 30px' %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="uk-margin-remove-top uk-grid" uk-grid>
+        <span class="uk-width-1-4">
+          <%= form.label :action_type, "Type d'action", class: 'uk-form-label' %>
+          <%= form.select :action_type, ComplaintArticle.action_types.collect {|kind| [I18n.t("refund_type.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select'} %> 
+        </span>
+        <span class="uk-width-1-4">
+          <%= form.label :mode, "Mode de paiement", class: 'uk-form-label' %>
+          <%= form.select :mode, Complaint.modes.collect {|kind| [I18n.t("complaint_mode.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+        </span>
+      </div>
+      <div class="no-padding-left uk-margin-small-top">
+        <%= form.label :note, "Note", class: 'uk-form-label' %>
+        <%= form.text_area :note, rows: 5, class: 'uk-textarea', data: {target: 'form.input'} %>
+      </div>
+      <div class="no-padding-left uk-margin-medium">
+        <%= link_to 'Retour', form_second_complaint_path(search: @params[:search]), class: 'uk-button uk-button-default' %>
+        <%= form.submit "Terminer", class: 'uk-button uk-button-primary' %>
+      </div>
+
+      <%= form.hidden_field :search, value: @params[:search] %>
+    <% end %>
+
+    <div class="order-separation"></div>
+    <ul class="uk-list-large uk-margin-xsmall-top" uk-grid uk-accordion="multiple: true">
+      <li class="uk-open uk-width">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Commande
+        <% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <%= render 'commande' %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#order_detail_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            responsive: true
+        });
+    });
+</script>

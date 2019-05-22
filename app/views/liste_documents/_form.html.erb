@@ -1,0 +1,67 @@
+<%= form_with(model: liste_document, local: true) do |form| %>
+  <% if liste_document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(liste_document.errors.count, "error") %> prohibited this liste_document from being saved:</h2>
+
+      <ul>
+      <% liste_document.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ca_num %>
+    <%= form.text_field :ca_num, id: :liste_document_ca_num %>
+  </div>
+
+  <div class="field">
+    <%= form.label :s_intitule %>
+    <%= form.text_field :s_intitule, id: :liste_document_s_intitule %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_piece %>
+    <%= form.text_field :do_piece, id: :liste_document_do_piece %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_ref %>
+    <%= form.text_field :do_ref, id: :liste_document_do_ref %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_coord01 %>
+    <%= form.text_field :do_coord01, id: :liste_document_do_coord01 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_totalht %>
+    <%= form.text_field :do_totalht, id: :liste_document_do_totalht %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_date %>
+    <%= form.date_select :do_date, id: :liste_document_do_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_statut %>
+    <%= form.text_field :do_statut, id: :liste_document_do_statut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_expedie %>
+    <%= form.check_box :do_expedie, id: :liste_document_do_expedie %>
+  </div>
+
+  <div class="field">
+    <%= form.label :do_type %>
+    <%= form.number_field :do_type, id: :liste_document_do_type %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,238 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container uk-container-expand">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-small" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary">
+          <%= link_to 'Retour', recherche_clients_path(search: @params[:search]), class: 'uk-button uk-button-default uk-margin-right' %>
+          <%= @variables[:fiche_client]['CT_Civilite'] %> <%= @variables[:fiche_client]['CT_Nom'] %> <%= @variables[:fiche_client]['CT_Prenom'] %>
+        </h1>
+      </div>
+    </div>
+
+    <ul class="uk-list-large" uk-accordion="multiple: true">
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Informations du client<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">N° Client</td>
+                <td><%= @variables[:fiche_client]['CT_Num'] %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Adresse</td>
+                <td><%= @variables[:fiche_client]['CT_Adresse'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Civilité</td>
+                <td><%= @variables[:fiche_client]['CT_Civilite'] %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Complément d'adresse</td>
+                <td><%= @variables[:fiche_client]['CT_Complement'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Nom</td>
+                <td><%= @variables[:fiche_client]['CT_Nom'] %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Code postal</td>
+                <td><%= @variables[:fiche_client]['CT_CodePostal'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Prénom</td>
+                <td><%= @variables[:fiche_client]['CT_Prenom'] %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Ville</td>
+                <td><%= @variables[:fiche_client]['CT_Ville'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">
+                  <% if @variables[:fiche_client]['CT_EMail'].present? %>
+                    Email
+                  <% else %>
+                    <span class="uk-text-danger">Email</span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if @variables[:fiche_client]['CT_EMail'].present? && (@variables[:fiche_client]['CT_EMail'].include? '@cwill.fr') %>
+                    <span class="uk-text-danger"><%= @variables[:fiche_client]['CT_EMail'] %></span>
+                  <% else %>
+                    <%= @variables[:fiche_client]['CT_EMail'] %>
+                  <% end %>
+                </td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Pays</td>
+                <td><%= @variables[:fiche_client]['CT_Pays'] %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">
+                  <% if @variables[:fiche_client]['CT_TelPortable'].present? %>
+                    Mobile
+                  <% else %>
+                    <span class="uk-text-danger">Mobile</span>
+                  <% end %>
+                </td>
+                <td><%= @variables[:fiche_client]['CT_TelPortable'] %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Solde Cagnotte</td>
+                <% if @variables[:fiche_client]['SOLDE_CAGNOTTE'].present? %>
+                <td><%= @variables[:fiche_client]['SOLDE_CAGNOTTE']/100 %>€</td>
+                <% else %>
+                <td>Pas de cagnotte</td>
+                <% end %>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Fixe</td>
+                <td><%= @variables[:fiche_client]['CT_Telephone'] %></td>
+                <td></td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Documents<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <% if @variables[:documents].present? %>
+              <table id="documents_table" class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+                <thead>
+                <tr>
+                  <th data-orderable="false"></th>
+                  <th>Canal</th>
+                  <th>N° CDE</th>
+                  <th>Date cde</th>
+                  <th>Total TTC</th>
+                  <th>épuisé</th>
+                  <th>MOYEN PAIE</th>
+                  <th>Statut</th>
+                  <th>Expédié</th>
+                  <th>Type</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @variables[:documents].each do |document| %>
+                  <tr>
+                    <td class="uk-flex uk-flex-center">
+                      <ul class="uk-iconnav">
+                        <li>
+                          <%= link_to detail_commandes_path(do_piece: document['DO_Piece'], do_type: document['DO_Type'],
+                                                            search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), target: :_blank do %>
+                            <span uk-icon="search"></span>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </td>
+                    <td><%= document['CA_Num'] %></td>
+                    <td><%= document['DO_Piece'] %></td>
+                    <td>
+                      <% if document['DO_Date'].present? %>
+                        <%= document['DO_Date'].to_date.strftime('%d/%m/%Y') %>
+                      <% end %>
+                    </td>
+                    <td><%= document['DO_TotalHT'] %></td>
+                    <td><%= document['DO_Coord01'] %></td>
+                    <td><%= document['DR_Reglement'] %></td>
+                    <td><%= document['DO_Satut'] %></td>
+                    <td><%= document['DO_Expedie'] %></td>
+                    <td><%= document['DO_Type_Text'] %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <div class="uk-margin">
+                <span class="uk-text-muted uk-text-xmedium">Aucun document lié à ce client.</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Interactions<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <div class="uk-width-auto@m">
+              <%= link_to 'Nouvelle Interaction', new_interaction_path(search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), class: 'uk-button uk-button-warning' %>
+              <span class="uk-text-warning">Pour créer une interaction ne correspondant pas à un document ci-dessus.</span>
+            </div>
+            <% if @variables[:interactions].present? %>
+              <table id="interactions_table" class="uk-table uk-table-striped uk-table-xsmall uk-table-responsive" style="width:100%">
+                <thead>
+                <tr>
+                  <th data-orderable="false"></th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Ref commande</th>
+                  <th>Contact</th>
+                  <th>Objet</th>
+                  <th>Statut</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <% @variables[:interactions].each do |interaction| %>
+                  <tr>
+                    <td class="uk-flex uk-flex-center">
+                      <ul class="uk-iconnav">
+                        <li>
+                          <%= link_to interaction_path(id: interaction.id, search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), target: :_blank do %>
+                            <span uk-icon="search"></span>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </td>
+                    <td><%= I18n.t("contact_method.#{interaction.kind}") %></td>
+                    <td>
+                      <% if interaction.date.present? %>
+                        <%= interaction.date.strftime('%d/%m/%Y') %>
+                      <% end %>
+                    </td>
+                    <td>
+                    <%= link_to detail_commandes_path(do_piece: interaction.do_piece, do_type: interaction.do_type,
+                                              client_num: interaction.ct_num), target: :_blank do %>
+                    <%= interaction.do_piece %>
+                    <% end %>
+                    </td>
+                    <td><%= interaction.contact %></td>
+                    <td><%= I18n.t("complaint_kind.#{interaction.object}") %></td>
+                    <td><%= I18n.t("status.#{interaction.status}") %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% else %>
+              <div class="uk-margin">
+                <span class="uk-text-muted uk-text-xmedium">Aucune interaction liée à ce client.</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#documents_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            columnDefs: [
+                {targets: 3, type: 'date-eu'}
+            ],
+            order: [[3, 'desc']],
+            responsive: true
+        });
+        $('#interactions_table').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            columnDefs: [
+                {targets: 2, type: 'date-eu'}
+            ],
+            order: [[2, 'desc']],
+            responsive: true
+        });
+    });
+</script>

@@ -1,0 +1,138 @@
+<div class="uk-section-xsmall uk-section-default">
+  <div class="uk-container">
+
+    <%= render 'shared/notice' %>
+
+    <div class="uk-flex-middle uk-margin-medium" uk-grid>
+      <div class="uk-width-expand@m">
+        <h1 class="uk-heading-primary"><%= @fiche_client.ct_intitule %> <%= @fiche_client.ct_nom %> <%= @fiche_client.ct_prenom %></h1>
+      </div>
+    </div>
+
+    <ul class="uk-list-large uk-list-divider" uk-accordion="multiple: true">
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Informations du client<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <tbody>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Numéro client</td>
+                <td><%= @fiche_client.ct_num %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Intitulé</td>
+                <td><%= @fiche_client.ct_intitule %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Civilité</td>
+                <td><%= @fiche_client.ct_civilite %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Nom</td>
+                <td><%= @fiche_client.ct_nom %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Prénom</td>
+                <td><%= @fiche_client.ct_prenom %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Adresse</td>
+                <td><%= @fiche_client.ct_adresse %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Complément d'adresse</td>
+                <td><%= @fiche_client.ct_complement %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Code postal</td>
+                <td><%= @fiche_client.ct_codepostal %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Ville</td>
+                <td><%= @fiche_client.ct_ville %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Pays</td>
+                <td><%= @fiche_client.ct_pays %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Email</td>
+                <td><%= @fiche_client.ct_email %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Téléphone</td>
+                <td><%= @fiche_client.ct_telephone %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Téléphone portable</td>
+                <td><%= @fiche_client.ct_telportable %></td>
+              </tr>
+              <tr>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Solde Cagnotte</td>
+                <td><%= @fiche_client.solde_cagnotte %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="uk-open">
+        <%= link_to '#', class: 'uk-accordion-title' do %>Documents<% end %>
+        <div class="uk-accordion-content">
+          <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+              <thead>
+              <tr>
+                <th>CA_Num</th>
+                <th>S_Intitule</th>
+                <th>DO_Piece</th>
+                <th>DO_Ref</th>
+                <th>DO_Coord01</th>
+                <th>DO_TotalHT</th>
+                <th>DO_Date</th>
+                <th>DO_Statut</th>
+                <th>DO_Expedie</th>
+                <th>DO_Type</th>
+                <th data-orderable="false">Actions</th>
+              </tr>
+              </thead>
+
+              <% if @documents.present? %>
+                <tbody>
+                <% @documents.each do |document| %>
+                  <tr>
+                    <td><%= document.ca_num %></td>
+                    <td><%= document.s_intitule %></td>
+                    <td><%= document.do_piece %></td>
+                    <td><%= document.do_ref %></td>
+                    <td><%= document.do_coord01 %></td>
+                    <td><%= document.do_totalht %></td>
+                    <td><%= document.do_date %></td>
+                    <td><%= document.do_statut %></td>
+                    <td><%= document.do_expedie %></td>
+                    <td><%= document.do_type %></td>
+                    <td class="uk-flex uk-flex-center">
+                      <ul class="uk-iconnav">
+                        <li>
+                          <%= link_to detail_commandes_path(do_piece: document.do_piece) do %>
+                            <span uk-icon="search"></span>
+                          <% end %>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="uk-margin-medium">
+      <%= link_to 'Retour', recherche_clients_path, class: 'uk-button uk-button-default' %>
+    </div>
+  </div>
+</div>

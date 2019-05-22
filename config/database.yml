@@ -1,0 +1,30 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+development:
+  <<: *default
+  adapter: postgresql
+  host: <%= ENV['LOCAL_DATABASE_HOST'] %>
+  username: postgres
+  password: admin
+  database: postgres3
+test:
+  <<: *default
+  adapter: postgresql
+  host: <%= ENV['LOCAL_DATABASE_HOST'] %>
+  username: <%= ENV['LOCAL_DATABASE_USERNAME'] %>
+  password: <%= ENV['LOCAL_DATABASE_PASSWORD'] %>
+  database: willemse_test
+production:
+  adapter: postgresql
+  database: willemse_production
+  encoding: unicode
+  pool: 5
+sql_server:
+  adapter: sqlserver
+  pool: 5
+  host: 172.30.11.40
+  database: RCFactory
+  username: RC
+  password: ZoR!2gl10

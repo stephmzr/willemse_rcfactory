@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @attachment.kind %>
+</p>
+
+<p>
+  <strong>file_fingerprint:</strong>
+  <%= @attachment.file_fingerprint %>
+</p>
+
+<p>
+  <strong>file_file_name:</strong>
+  <%= @attachment.file_file_name %>
+</p>
+
+<p>
+  <strong>File:</strong>
+  <%= link_to @attachment.file.original_filename, url_for(@attachment.file.url) %>
+</p>
+
+<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
+<%= link_to 'Back', attachments_path %>
