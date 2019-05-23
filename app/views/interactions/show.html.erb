@@ -72,13 +72,12 @@
         </tr>
 
         <% if @interaction.summary.present? %>
-        <tr>
-        <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Réponse de : <% @comment.contact %></td>
-        <td>
         <%= form_for [ @comment ] do |f| %>
-
-            <%= f.text_area :body %>
-            <%= f.submit 'Envoyer', class: "btn btn-primary" %>
+        <tr>
+        <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Réponse de : <%=  current_user.email %></td>
+        <td>
+            <%= f.text_area :body, class: 'uk-textarea', data: {target: 'form.input'} %>
+            <%= f.submit 'Envoyer', class: "uk-button uk-button-primary" %>
         <% end %>
         </td>
 

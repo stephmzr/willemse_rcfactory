@@ -1,18 +1,15 @@
 class CommentsController < ApplicationController
     def create
-        @commentaire = Comment.new(comment_params)
-        @commentaire.interaction.id = params[:interaction_id]
+        @comment = Comment.new(comment_params)
+        @comment.interaction_id = params[:interaction_id]
+        @comment.contact = current_user.email
+        @comment.save
 
-        @commentaire.save
-
-        redirect_to interaction_path(@commentaire.articles_id)
-    end 
-
+        redirect_to interaction_path()
+    end
 
 private
-    def post_params
-    params.require(: post).permit(: link,: title)
+    def comment_params
+    params.require(:comment).permit(:body)
     end
-end
-
 end

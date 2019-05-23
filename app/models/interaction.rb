@@ -1,6 +1,7 @@
 class Interaction < ApplicationRecord
   has_many :attachments, dependent: :destroy
   has_one :complaint, dependent: :destroy
+  has_many :comments
 
   attr_accessor :client_name
 

@@ -13,6 +13,7 @@ end
 
   # GET /interactions/1
   def show
+    @interaction = Interaction.find(params[:id])
     @comment = Comment.new
     @comment.interaction_id = @interaction.id
     if params[:do_piece].present?
@@ -25,7 +26,7 @@ end
 
   # GET /interactions/new
   def new
-    @interaction = Interaction.new
+    @interaction = Interaction.new 
     @params = { search: params[:search], client_num: params[:client_num],
                 do_piece: params[:do_piece], do_type: params[:do_type] }
     @interaction.ct_num = params[:client_num]
