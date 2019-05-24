@@ -76,7 +76,9 @@
         <tr>
         <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Réponse de : <%=  current_user.email %></td>
         <td>
+
             <%= f.text_area :body, class: 'uk-textarea', data: {target: 'form.input'} %>
+            <%= f.hidden_field :interaction_id, value: ###@interaction.id %>
             <%= f.submit 'Envoyer', class: "uk-button uk-button-primary" %>
         <% end %>
         </td>
