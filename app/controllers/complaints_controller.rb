@@ -347,63 +347,63 @@ end
 end
 
   def echange
-    complaint = Complaint.find(params[:id])
-    if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
-      document_lines = []
-      complaint.complaint_articles.where('number_selected > 0').each do |article|
-        document_lines << {
-            "referenceArticle": article.AR_Ref,
-            "quantite": article.number_selected,
-            "totalTTC": article.action_amount
-        }
-    end
-    body = {
-      "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
-      "typeDocument": complaint.interaction.do_type,
-      "numeroDocument": complaint.interaction.do_piece,
-      "lignesDocument": document_lines,
-      "motif": params[:motif]
-    }
-      response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/echangerArticles',
-      :body => body.to_json,
-      :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
-      json_body = JSON.parse(response.body)
-    
-    if (response.code == 200)
-      if (json_body['erreur'])
-        complaint.interaction.action_status = 2
-        complaint.interaction.error_message = json_body['message']
-        if complaint.interaction.save
-          render json: json_body['message'], status: :error
-        else
-          render json: 'Erreur de mise à jour du statut', status: :internal_server_error
-        end
-      else
-        complaint.interaction.action_status = 1
-        complaint.interaction.status = 'closed'
-        complaint.complaint_status = 'closed'
-        if complaint.interaction.save
-          if complaint.save
-            head :ok
+    if current_user.admin? 
+      complaint = Complaint.find(params[:id])
+      if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
+        document_lines = []
+        complaint.complaint_articles.where('number_selected > 0').each do |article|
+          document_lines << {
+              "referenceArticle": article.AR_Ref,
+              "quantite": article.number_selected,
+              "totalTTC": article.action_amount
+          }
+      end
+      body = {
+        "cle": "D4236$MkJ3jSW!k$y7?Ac$fry#8Q%6",
+        "typeDocument": complaint.interaction.do_type,
+        "numeroDocument": complaint.interaction.do_piece,
+        "lignesDocument": document_lines,
+        "motif": params[:motif]
+      }
+        response = HTTParty.post('http://172.30.11.40:55444/SageWS/RC/echangerArticles',
+        :body => body.to_json,
+        :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' })
+        json_body = JSON.parse(response.body)
+      
+      if (response.code == 200)
+        if (json_body['erreur'])
+          complaint.interaction.action_status = 2
+          complaint.interaction.error_message = json_body['message']
+          if complaint.interaction.save
+            render json: json_body['message'], status: :error
           else
             render json: 'Erreur de mise à jour du statut', status: :internal_server_error
           end
         else
-          render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+          complaint.interaction.action_status = 1
+          complaint.interaction.status = 'closed'
+          complaint.complaint_status = 'closed'
+          if complaint.interaction.save
+            if complaint.save
+              head :ok
+            else
+              render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+            end
+          else
+            render json: 'Erreur de mise à jour du statut', status: :internal_server_error
+          end
         end
-      end
+      end 
+    end  
+    else
+      redirect_to complaint_path, alert: "Vous n'avez pas la permission pour effectuer cette action"
     end
-  end  
-end
+  end
 
 
 def remboursement
+  if current_user.admin? 
   complaint = Complaint.find(params[:id])
-  # if params[:do_piece].present?
-  # if complaint.interaction.do_piece.present?
-  #   result = DetailCommande.execute_procedure "p_detail_commande", complaint.interaction.do_piece, complaint.interaction.do_type
-  # end
-  # documents = FicheClient.execute_procedure "p_listdocs", fiche_client.ct_num
     if complaint.complaint_articles.present? && complaint.complaint_articles.where('number_selected > 0').length > 0
       document_lines = []     
       
@@ -422,14 +422,7 @@ def remboursement
           "numeroDocument": complaint.interaction.do_piece,
           "lignesDocument": document_lines.to_json,
           "montant": params[:amount].to_f,
-          # "souche": complaint.interaction.do_type = 2 ? "Cagnot." : "Non",
-          "souche": 
-          case complaint.interaction.do_type
-          when "1"
-          "Ok"
-          when "2"
-          "Cagnot."
-          end,
+          "souche": complaint.mode,
           "motif": params[:motif]
       }
 
@@ -461,8 +454,11 @@ def remboursement
             end
           end
         end
-      end  
-    end
+      end
+  else
+    redirect_to complaint_path, alert: "Vous n'avez pas la permission pour effectuer cette action"
+  end  
+end
 
 
   private

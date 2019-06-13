@@ -71,6 +71,10 @@
           <td><%= simple_format(@interaction.summary) %></td>
         </tr>
 
+<%# commentaires sur interaction     %>
+<%
+=begin
+%>
         <% if @interaction.summary.present? %>
         <%= form_for [ @comment ] do |f| %>
         <tr>
@@ -85,6 +89,10 @@
 
         </tr>
         <% end %> 
+<%
+=end
+%>
+
         </tbody>
       </table>
 
