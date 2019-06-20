@@ -116,7 +116,7 @@
                       <ul class="uk-iconnav">
                         <li>
                           <%= link_to detail_commandes_path(do_piece: document['DO_Piece'], do_type: document['DO_Type'],
-                                                            search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), target: :_blank do %>
+                                                            search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']) do %>
                             <span uk-icon="search"></span>
                           <% end %>
                         </li>
@@ -175,7 +175,7 @@
                     <td class="uk-flex uk-flex-center">
                       <ul class="uk-iconnav">
                         <li>
-                          <%= link_to interaction_path(id: interaction.id, search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']), target: :_blank do %>
+                          <%= link_to interaction_path(id: interaction.id, search: @params[:search], client_num: @variables[:fiche_client]['CT_Num']) do %>
                             <span uk-icon="search"></span>
                           <% end %>
                         </li>
