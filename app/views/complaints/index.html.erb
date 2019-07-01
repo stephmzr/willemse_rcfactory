@@ -22,7 +22,7 @@
         <th class="uk-text-bold uk-text-uppercase">Ref Commande</th>
         <th class="uk-text-bold uk-text-uppercase">N° Client</th>
         <th class="uk-text-bold uk-text-uppercase">Nom Prénom</th>
-        <th class="uk-text-bold uk-text-uppercase">Interaction</th>
+        <%# <th class="uk-text-bold uk-text-uppercase">Interaction</th> %>
         <th class="uk-text-bold uk-text-uppercase">Type action</th>
         <th class="uk-text-bold uk-text-uppercase">Mode paiement</th>
         <th class="uk-text-bold uk-text-uppercase">Montant TTC</th>
@@ -64,7 +64,7 @@
             <% end %>
           </td>
           <td><%= complaint.client_name %></td>
-          <td><%= I18n.t("contact_method.#{complaint.contact_method}") %></td>
+          <%# <td><%= I18n.t("contact_method.#{complaint.contact_method}") </td> %>
           <td id="actiontype"><%= I18n.t("refund_type.#{complaint.refund_type}") unless complaint.refund_type.nil? %></td>
           <td><%= I18n.t("complaint_mode.#{complaint.mode}") unless complaint.mode.nil? %></td>
           <td><%= "% .2f" % complaint.total_reclam %>€</td>

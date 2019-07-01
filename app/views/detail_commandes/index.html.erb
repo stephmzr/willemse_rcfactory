@@ -186,6 +186,13 @@
           </div>
         </div>
       </li>
+      <li class="uk-open uk-width-1-2">
+            <div class="uk-width-auto@m">
+                  <%= link_to 'Nouvelle Interaction', new_interaction_path(search: @params[:search], client_num: @params[:client_num],
+                                                                       do_piece: @variables[:detail_commande]['DO_piece'],
+                                                                       do_type: @params[:do_type]), class: 'uk-button uk-button-primary' %>
+            </div>
+      </li>
       <% if @variables[:contenu_commande].present? %>
       <li class="uk-open uk-width">
         <%= link_to '#', class: 'uk-accordion-title' do %>Détail commande<% end %>
