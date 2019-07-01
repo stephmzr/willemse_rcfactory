@@ -3,7 +3,7 @@ class InteractionsController < ApplicationController
 
   # GET /interactions
   def index
-    @interactions = Interaction.joins(" left join public.complaints on interactions.id=complaints.interaction_id where complaints.id is null and status<2")#.where("status<?",2)
+    @interactions = Interaction.joins(" left join public.complaints on interactions.id=complaints.interaction_id where complaints.id is null and status<2 and status<2 ")#.where("status<?",2)
     @interactions.each do |interaction|
       result = FicheClient.execute_procedure "p_ficheclient", interaction.ct_num
       fiche_client = result[0]
