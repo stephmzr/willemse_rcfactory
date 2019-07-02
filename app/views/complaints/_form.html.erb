@@ -20,7 +20,7 @@
 
       <span class="uk-width-1-3">
         <%= form.label :kind, "Type de réclamation", class: 'uk-form-label' %>
-        <%= form.select :kind, Complaint.kinds.collect {|kind| [I18n.t("complaint_kind.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+        <%= form.select :kind, Complaint.kinds.collect {|kind| [I18n.t("kind.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
       </span>
 
       <span class="uk-width-1-3">

@@ -7,7 +7,7 @@
       <div class="uk-width-expand@m">
         <h1 class="uk-heading-primary">
           <%= link_to 'Retour à l\'interaction', interaction_path(@variables[:complaint].interaction, search: @params[:search]), class: 'uk-button uk-button-default uk-margin-right' %>
-          <%= I18n.t("complaint_kind.#{@variables[:complaint].kind}") %>
+          <%= I18n.t("kind.#{@variables[:complaint].kind}") %>
           <% if @variables[:complaint].interaction.date.present? %>
             - <%= @variables[:complaint].interaction.date.strftime('%d/%m/%Y') %>
           <% end %>
@@ -28,15 +28,16 @@
               <tbody>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Type de réclamation</td>
-                <td><%= I18n.t("complaint_kind.#{@variables[:complaint].kind}") %></td>
+                <td><%= I18n.t("kind.#{@variables[:complaint].kind}") %></td>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Méthode de contact</td>
                 <td><%= I18n.t("contact_method.#{@variables[:complaint].contact_method}") %></td>
               </tr>
               <tr>
                 <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Note</td>
                 <td><%= simple_format(@variables[:complaint].note) %></td>
-                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Mode de paiement</td>
-                <td><%= I18n.t("complaint_mode.#{@variables[:complaint].mode}") unless @variables[:complaint].mode.nil? %></td>
+                <td class="uk-text-bold uk-text-uppercase uk-text-small uk-width-medium">Type d'action</td>
+                <td><%= I18n.t("refund_type.#{@variables[:complaint].refund_type}") unless @variables[:complaint].refund_type? %></td>
+                <%# <%= I18n.t("refund_type.#{complaint.refund_type}") unless complaint.refund_type.nil? </td> %>
               </tr>
               </tbody>
             </table>

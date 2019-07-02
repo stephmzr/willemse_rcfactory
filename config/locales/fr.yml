@@ -1,5 +1,5 @@
 fr:
-  complaint_kind:
+  kind:
     defraichi: 'Articles défraîchis'
     manquant: 'Articles manquants'
     casse_horticole: 'Casse horticole'
