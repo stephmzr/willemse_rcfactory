@@ -11,7 +11,7 @@ attr_accessor :total_reclam
 attr_accessor :client_name
 attr_accessor :refund_type
 
-enum kind: {
+enum complaint_kind: {
     defraichi: 0,
     manquant: 1,
     casse_horticole: 2,

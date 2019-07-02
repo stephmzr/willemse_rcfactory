@@ -12,7 +12,7 @@
           <% else %>
             <%= link_to 'Retour', fiche_clients_path(client_num: @interaction.ct_num, search: @params[:search]), class: 'uk-button uk-button-default' %>
           <% end %>
-          <%= I18n.t("kind.#{@interaction.object}") %>
+          <%= I18n.t("complaint_kind.#{@interaction.object}") %>
           <% if @interaction.date.present? %>
             - <%= @interaction.date.strftime('%d/%m/%Y') %>
           <% end %>

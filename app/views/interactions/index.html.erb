@@ -71,7 +71,7 @@
             <%# <%= I18n.t("refund_type.#{interaction.refund_type}") unless interaction.refund_type.nil? %>
           <% end %>
           </td>
-          <td><%= I18n.t("kind.#{interaction.object}") %></td>
+          <td><%= I18n.t("complaint_kind.#{interaction.object}") %></td>
           <td id="status">
             <%= I18n.t("status.#{interaction.status}") %>
             <% if interaction.action_status == 1 %>

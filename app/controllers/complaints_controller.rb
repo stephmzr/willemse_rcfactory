@@ -4,11 +4,6 @@ class ComplaintsController < ApplicationController
   # GET /complaints
   def index
     #@complaints = Complaint.where(interaction_id: Interaction.where("status<?",2))
-    @souche = SqlServerDb.connection.select_all("SELECT S_Intitule FROM P_SOUCHEVENTE WHERE S_Intitule !=''")
-    # listesouche = []
-    # listesouche << souche.each do |row|
-    #   puts row['S_Intitule']
-    # end
     @complaints = Complaint.where("complaint_status<?",2)
     @complaints.each do |complaint|
       if complaint.complaint_articles.present?

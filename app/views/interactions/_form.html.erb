@@ -41,7 +41,7 @@
 
       <span class="uk-width-1-4">
         <%= form.label :object, "Objet", class: 'uk-form-label' %> 
-        <%= form.select :object, Complaint.kinds.collect {|kind| [I18n.t("complaint_kind.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
+        <%= form.select :object, Complaint.complaint_kinds.collect {|kind| [I18n.t("complaint_kind.#{kind[0]}"), kind[0]]}, {}, {class: 'uk-select', data: {target: 'form.input'}} %>
       </span>
 
       <span class="uk-width-1-4">
