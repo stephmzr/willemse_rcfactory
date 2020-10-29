@@ -7,7 +7,7 @@
     "datatables.net-dt": "^1.10.19",
     "datatables.net-responsive": "^2.2.3",
     "flatpickr": "^4.5.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "select2": "^4.0.6-rc.1",
     "stimulus": "^1.0.1",
     "stimulus-flatpickr": "^0.3.0",
