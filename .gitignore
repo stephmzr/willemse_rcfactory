@@ -83,3 +83,5 @@ test/
 database.yml
 deploy.rb
 /db
+yarn.lock
+Gemfile.lock
