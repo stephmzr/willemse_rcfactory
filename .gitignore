@@ -85,3 +85,4 @@ deploy.rb
 /db
 yarn.lock
 Gemfile.lock
+package.json
