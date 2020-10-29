@@ -80,6 +80,6 @@ test/
 # Ignore application configuration
 /config/application.yml
 
-/config/database.yml
-/config/deploy.rb
-/db/*
+database.yml
+deploy.rb
+/db
